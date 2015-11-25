@@ -8,6 +8,15 @@ namespace WindowsFormsApplication1
 {
     class Algorithms
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public Vector HookeCoulomb(Vertex v, Vertex w, double c1, double c2, double s)
         {
             Vector r = Vertex.VectorBetween(v, w);
@@ -21,6 +30,16 @@ namespace WindowsFormsApplication1
             return s * (fAtt + fRep);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <param name="c3"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public Vector Eades(Vertex v, Vertex w, double c1, double c2, double c3, double s)
         {
             Vector r = Vertex.VectorBetween(v, w);
@@ -34,6 +53,15 @@ namespace WindowsFormsApplication1
             return s * (fAtt + fRep);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
+        /// <param name="c"></param>
+        /// <param name="radius"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public Vector FruchtRein(Vertex v, Vertex w, double c, double radius, double s)
         {
             Vector r = Vertex.VectorBetween(v, w);
@@ -48,6 +76,13 @@ namespace WindowsFormsApplication1
             return s * (fAtt + fRep);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t0"></param>
+        /// <param name="n"></param>
+        /// <param name="iteration"></param>
+        /// <returns></returns>
         public double Cooling(double t0, int n, int iteration)
         {
             return Math.Pow(t0, 1 - iteration / n);
