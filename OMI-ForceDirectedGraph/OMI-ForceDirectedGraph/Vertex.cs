@@ -9,7 +9,7 @@ namespace OMI_ForceDirectedGraph
     /// <summary>
     /// The Vertex class, used in calculations
     /// 
-    /// What is this? An HashSet!? That's right! It's a list with only unique values, also, it's OP as fuck.
+    /// What is this? A HashSet!? That's right! It's a list with only unique values, also, it's OP as fuck.
     /// </summary>
     public class Vertex
     {

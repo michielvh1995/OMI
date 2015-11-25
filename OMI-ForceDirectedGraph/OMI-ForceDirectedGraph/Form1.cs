@@ -34,9 +34,7 @@ namespace OMI_ForceDirectedGraph
             this.GenerateVertices();
             this.updateForces();
             this.testFunctions();
-
         }
-
 
         /// <summary>
         /// Just here to test whether everything works
