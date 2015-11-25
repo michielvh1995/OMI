@@ -4,33 +4,65 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace WindowsFormsApplication1
+namespace OMI_ForceDirectedGraph
 {
-    class Vertex
+    /// <summary>
+    /// The Vertex class, used in calculations
+    /// 
+    /// What is this? An HashSet!? That's right! It's a list with only unique values, also, it's OP as fuck.
+    /// </summary>
+    public class Vertex
     {
-        public Vector coordinates;
-        public List<Vertex> connections;
+        public Vector PositionVector { get; private set; }
+        public HashSet<int> connectedVertexIDs;
+        private readonly double mass;
 
-        public Vertex(double x, double y)
+        // Allows for easier computations
+        public int ID;
+
+        // Constructors
+        public Vertex(int id)
         {
-            coordinates = new Vector(x, y);
-            connections = new List<Vertex>();
+            this.ID = id;
+            this.mass = 1;
         }
 
-        public Vertex(Vector coordinates)
+        public Vertex(int id, Vector position)
         {
-            this.coordinates = coordinates;
-            connections = new List<Vertex>();
+            this.ID = id;
+            this.PositionVector = position;
+            this.mass = 1;
         }
 
-        public static Vector VectorBetween(Vertex from, Vertex to)
+        public Vertex(int id, Vector position, HashSet<int> connections)
         {
-            return Vertex.VectorBetween(from.coordinates, to.coordinates);
+            this.ID = id;
+            this.PositionVector = position;
+            this.connectedVertexIDs = connections;
+            this.mass = 1;
         }
 
-        public static Vector VectorBetween(Vector from, Vector to)
+        // Apply force function, requires the addition vector
+        public void ApplyForce(Vector forceVector)
         {
-            return to - from;
+            this.PositionVector += forceVector / this.mass;
+        }
+
+        // Check whether 2 nodes are connected
+        public bool ConnectedWith(Vertex otherVertex)
+        {
+            return this.connectedVertexIDs.Contains(otherVertex.ID);
+        }
+
+        public int GetConnectionCount()
+        {
+            return this.connectedVertexIDs.Count;
+        }
+
+
+        public void AddConnection(Vertex otherVertex)
+        {
+            this.connectedVertexIDs.Add(otherVertex.ID);
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
+/*
 namespace WindowsFormsApplication1
 {
+    // Length == Strength
     class Algorithms
     {
         /// <summary>
@@ -69,7 +71,7 @@ namespace WindowsFormsApplication1
             rn.Normalize();
             double d = r.Length;
 
-            double k = c * Math.Sqrt((Math.PI * r * r) / (1/*Function to count number of objects in radius around vertex v here*/));
+            double k = c * Math.Sqrt((Math.PI * r * r) / (1)); // Function to count number of objects in radius around Vertex v here
             Vector fAtt = v.connections.Contains(w) ? ((d * d) / k) * rn : new Vector(0, 0);
             Vector fRep = (-(k * k) / d) * rn;
 
@@ -86,6 +88,30 @@ namespace WindowsFormsApplication1
         public double Cooling(double t0, int n, int iteration)
         {
             return Math.Pow(t0, 1 - iteration / n);
+        }
+    }
+}
+
+*/
+
+namespace OMI_ForceDirectedGraph
+{
+    internal class Algorithms
+    {
+
+        public static Vector HookeCoulombForce(Vertex node1, Vertex node2, double c1, double c2, double s)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Vector EadesForce(Vertex node1, Vertex node2, double c1, double c2, double c3, double s)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Vector FruchtRein(Vertex node1, Vertex node2, double c, double radius, double s)
+        {
+            throw new NotImplementedException();
         }
     }
 }
