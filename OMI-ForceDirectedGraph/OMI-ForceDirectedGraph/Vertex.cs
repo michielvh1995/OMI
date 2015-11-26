@@ -64,5 +64,10 @@ namespace OMI_ForceDirectedGraph
         {
             this.connectedVertexIDs.Add(otherVertex.ID);
         }
+
+        public static Vector VectorBetween(Vertex node1, Vertex node2)
+        {
+            return node2.PositionVector - node1.PositionVector;
+        }
     }
 }
