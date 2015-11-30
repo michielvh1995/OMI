@@ -50,13 +50,16 @@ namespace OMI_ForceDirectedGraph
                     if (!worker)
                         break;
 
+                    // i=1 -> 13,4,8
+                    if (i == 13)
+                        Console.WriteLine("a");
+
                     worker = Vertices[v].ConnectedWith(Vertices[i]);
                 }
                 if (!worker)
                     break;
-
-                Console.WriteLine(worker);
             }
+            Console.WriteLine(worker);
         }
 
         // Generate 25 vertices, each with a random position and up to 10 random connections
@@ -84,7 +87,13 @@ namespace OMI_ForceDirectedGraph
             for (int i = 0; i < 25; i++)
                 for (int j = i; j < 25; j++)
                     if (Vertices[i].ConnectedWith(Vertices[j]))
+                    {
                         Vertices[j].AddConnection(Vertices[i]);
+                        if(Vertices[j].ConnectedWith(Vertices[i]) && !Vertices[i].ConnectedWith(Vertices[j]))
+                            Console.WriteLine("HELP");
+                    }
+
+
         }
 
 
