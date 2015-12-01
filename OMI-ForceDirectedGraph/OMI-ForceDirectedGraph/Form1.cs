@@ -20,6 +20,9 @@ namespace OMI_ForceDirectedGraph
         static extern bool AllocConsole();
         #endregion
 
+        // Display object for drawing the graphs
+        Display display = new Display();
+
         // A total of up to 25 vertices are allowed in the graph
         internal Vertex[] Vertices = new Vertex[25];
         private Random rndGen = new Random();
@@ -31,9 +34,7 @@ namespace OMI_ForceDirectedGraph
         {
             AllocConsole();
             InitializeComponent();
-            this.GenerateVertices();
-            this.updateForces();
-            this.testFunctions();
+            //this.testFunctions();
         }
 
         /// <summary>
@@ -68,11 +69,11 @@ namespace OMI_ForceDirectedGraph
             for (int i = 0; i < 25; i++)
             {
                 // Random Position
-                int x = rndGen.Next(-10, 10);
-                int y = rndGen.Next(-10, 10);
+                int x = rndGen.Next(10, 500);
+                int y = rndGen.Next(10, 500);
 
                 // Random Connections 
-                int connections = rndGen.Next(10);
+                int connections = 1 + rndGen.Next(2);
                 HashSet<int> connectionSet = new HashSet<int>();
 
                 for (int c = 0; c < connections; c++)
@@ -92,8 +93,6 @@ namespace OMI_ForceDirectedGraph
                         if(Vertices[j].ConnectedWith(Vertices[i]) && !Vertices[i].ConnectedWith(Vertices[j]))
                             Console.WriteLine("HELP");
                     }
-
-
         }
 
 
@@ -117,6 +116,27 @@ namespace OMI_ForceDirectedGraph
                 }
                 closed[i] = true;
             }
+        }
+
+
+        // Displaying the vertices
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (Vertices[0] == null) return;
+
+            display.DrawGraph(e.Graphics, Vertices);            
+        }
+
+        private void GenerateButton_Click(object sender, EventArgs e)
+        {
+            this.GenerateVertices();
+            pictureBox1.Invalidate();
+        }
+
+        private void ApplyForcesButton_Click(object sender, EventArgs e)
+        {
+            this.updateForces();
+            pictureBox1.Invalidate();
         }
     }
 }
