@@ -43,5 +43,5 @@ Temporary Items
 .apdisk
 *.exe
 *.pdb
-OMI-ForceDirectedGraph/OMI-ForceDirectedGraph/obj/Debug/OMI-ForceDirectedGraph.csproj.GenerateResource.Cache
 *.cache
+*.txt
