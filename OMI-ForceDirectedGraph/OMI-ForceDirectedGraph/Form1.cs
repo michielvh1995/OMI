@@ -27,6 +27,10 @@ namespace OMI_ForceDirectedGraph
         internal Vertex[] Vertices = new Vertex[25];
         private Random rndGen = new Random();
 
+        // Define the weights for the repulsive and attractive forces
+        private int rWeight = 1;
+        private int aWeight = 1;
+
         // each run we will have up to a maximum of 100 iterations of calculating and apply force before we stop it
         private int maxIterations = 100;
 
@@ -90,7 +94,7 @@ namespace OMI_ForceDirectedGraph
                     if (Vertices[i].ConnectedWith(Vertices[j]))
                     {
                         Vertices[j].AddConnection(Vertices[i]);
-                        if(Vertices[j].ConnectedWith(Vertices[i]) && !Vertices[i].ConnectedWith(Vertices[j]))
+                        if (Vertices[j].ConnectedWith(Vertices[i]) && !Vertices[i].ConnectedWith(Vertices[j]))
                             Console.WriteLine("HELP");
                     }
         }
@@ -99,23 +103,72 @@ namespace OMI_ForceDirectedGraph
         // Main function:
         private void updateForces()
         {
+
+            Console.WriteLine(Vertices[1].PositionVector);
+
             bool[] closed = new bool[25];
-            for (int i = 0; i < 5; i++)
+            var forcesDict = new Dictionary<int, Vector>(25);
+
+            for (int i = 0; i < 25; i++)
             {
                 var vert = Vertices[i];
-                foreach (var connection in vert.connectedVertexIDs)
+
+
+
+                foreach (int connection in vert.connectedVertexIDs)
                 {
                     if (closed[connection])
                         continue;
 
-                    // Roep de bereken functies aan voor de forces
-                    var force = new Vector(1, 1); // Algorithms.EadesForce(null, null, 0, 0, 0, 0);
+                    Vector oldForce = new Vector(0, 0);
+                    Vector aForce = Algorithms.HCAttractive(vert, Vertices[connection], aWeight);
 
-                    vert.ApplyForce(force);
-                    Vertices[connection].ApplyForce(-force);
+                    forcesDict.TryGetValue(i, out oldForce);
+
+                    forcesDict[i] = oldForce + aForce;
+                    forcesDict[connection] = oldForce - aForce;
+
+
+                    // Stappenplan (met opvang):
+                    // Alle nodes af gaan, 
+                    // alle connecties bekijken & alle andere nodes af gaan voor repulsive
+                    // Gooi de tegenovergestelde force bij de andere dingen (bij beide loops)
+                    // Al gesloten nodes worden geskipt
                 }
+
                 closed[i] = true;
             }
+
+            // Apply Repulsive Forces:
+            closed = new bool[25];
+
+            for (int i = 0; i < 25; i++)
+            {
+                if (closed[i])
+                    continue;
+
+                for (int j = i + 1; j < 25; j++)
+                {
+                    Vector oldForce = new Vector(0, 0);
+                    Vector aForce = Algorithms.HCAttractive(Vertices[i], Vertices[j], aWeight);
+
+                    forcesDict.TryGetValue(i, out oldForce);
+
+                    forcesDict[i] = oldForce + aForce;
+                    forcesDict[j] = oldForce - aForce;
+                }
+            }
+
+
+            for (int i = 0; i < 25; i++)
+            {
+                if (forcesDict.ContainsKey(i))
+                    Vertices[i].ApplyForce(forcesDict[i]);
+
+                Console.WriteLine(Vertices[i].PositionVector);
+            }
+
+
         }
 
 

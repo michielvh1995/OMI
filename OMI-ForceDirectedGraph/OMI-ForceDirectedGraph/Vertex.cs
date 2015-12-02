@@ -8,44 +8,29 @@ namespace OMI_ForceDirectedGraph
 {
     /// <summary>
     /// The Vertex class, used in calculations
-    /// 
-    /// What is this? A HashSet!? That's right! It's a list with only unique values, also, it's OP as fuck.
     /// </summary>
     public class Vertex
     {
         public Vector PositionVector { get; private set; }
-        public HashSet<int> connectedVertexIDs;
-        private readonly double mass;
+        public HashSet<int> connectedVertexIDs;         // Should be private, for debugging reasons it's not
+        private readonly double mass;                   // Currently in use to ensure the nodes wont fly too far away
 
         // Allows for easier computations
         public int ID;
 
-        // Constructors
-        public Vertex(int id)
-        {
-            this.ID = id;
-            this.mass = 1;
-        }
-
-        public Vertex(int id, Vector position)
-        {
-            this.ID = id;
-            this.PositionVector = position;
-            this.mass = 1;
-        }
-
+        // Constructor function
         public Vertex(int id, Vector position, HashSet<int> connections)
         {
             this.ID = id;
             this.PositionVector = position;
             this.connectedVertexIDs = connections;
-            this.mass = 1;
+            this.mass = 3;
         }
 
         // Apply force function, requires the addition vector
         public void ApplyForce(Vector forceVector)
         {
-            this.PositionVector += forceVector / this.mass;
+            this.PositionVector += (forceVector / this.mass);
         }
 
         // Check whether 2 nodes are connected
@@ -54,16 +39,20 @@ namespace OMI_ForceDirectedGraph
             return this.connectedVertexIDs.Contains(otherVertex.ID);
         }
 
+        // Get the amount of connections, this node has.
         public int GetConnectionCount()
         {
             return this.connectedVertexIDs.Count;
         }
 
-
+        // Add a new connection
+        // Should not be used when the nodes are properly generated
         public void AddConnection(Vertex otherVertex)
         {
             this.connectedVertexIDs.Add(otherVertex.ID);
         }
+        
+
 
         public static Vector VectorBetween(Vertex node1, Vertex node2)
         {
