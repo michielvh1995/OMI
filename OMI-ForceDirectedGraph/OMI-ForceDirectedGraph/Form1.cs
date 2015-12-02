@@ -20,6 +20,8 @@ namespace OMI_ForceDirectedGraph
         static extern bool AllocConsole();
         #endregion
 
+        public const int verticesAmt = 25;
+
         // Display object for drawing the graphs
         Display display = new Display();
 
@@ -27,8 +29,7 @@ namespace OMI_ForceDirectedGraph
         QualityTest qualityTest = new QualityTest();
 
         // A total of up to 25 vertices are allowed in the graph
-        int vertexAmount = 25;
-        internal Vertex[] Vertices;
+        internal Vertex[] Vertices = new Vertex[verticesAmt];
         private Random rndGen = new Random();
 
         // Define the weights for the repulsive and attractive forces
@@ -40,7 +41,6 @@ namespace OMI_ForceDirectedGraph
 
         public Form1()
         {
-            Vertices = new Vertex[vertexAmount];
             AllocConsole();
             InitializeComponent();
             //this.testFunctions();
@@ -53,7 +53,7 @@ namespace OMI_ForceDirectedGraph
         {
             // Whether all connections are correct
             bool worker = true;
-            for (int i = 0; i < vertexAmount; i++)
+            for (int i = 0; i < verticesAmt; i++)
             {
                 foreach (var v in Vertices[i].connectedVertexIDs)
                 {
@@ -75,9 +75,9 @@ namespace OMI_ForceDirectedGraph
         // Generate 25 vertices, each with a random position and up to 10 random connections
         private void GenerateVertices()
         {
-            Vertices = new Vertex[vertexAmount];
+            Vertices = new Vertex[verticesAmt];
             
-            for (int i = 0; i < vertexAmount; i++)
+            for (int i = 0; i < verticesAmt; i++)
             {
                 // Random Position
                 int x = rndGen.Next(10, 500);
@@ -88,7 +88,11 @@ namespace OMI_ForceDirectedGraph
                 HashSet<int> connectionSet = new HashSet<int>();
 
                 for (int c = 0; c < connections; c++)
-                    connectionSet.Add(rndGen.Next(vertexAmount));
+                {
+                    int conn = rndGen.Next(verticesAmt);
+                    if (conn != i)
+                        connectionSet.Add(conn);
+                }
 
                 // The ID is its position in the array
                 Vertices[i] = new Vertex(i, new Vector(x, y), connectionSet);
@@ -96,8 +100,8 @@ namespace OMI_ForceDirectedGraph
 
             // And now for some hacky magic:
             // Each connection goes both ways:
-            for (int i = 0; i < vertexAmount; i++)
-                for (int j = 1; j < vertexAmount; j++)
+            for (int i = 0; i < verticesAmt; i++)
+                for (int j = 1; j < verticesAmt; j++)
                     if (Vertices[i].ConnectedWith(Vertices[j]))
                     {
                         Vertices[j].AddConnection(Vertices[i]);
@@ -113,10 +117,13 @@ namespace OMI_ForceDirectedGraph
 
             Console.WriteLine(Vertices[1].PositionVector);
 
-            bool[] closed = new bool[vertexAmount];
-            var forcesDict = new Dictionary<int, Vector>(vertexAmount);
+            bool[] closed = new bool[verticesAmt];
+            var forcesDict = new Dictionary<int, Vector>(verticesAmt);
 
-            for (int i = 0; i < vertexAmount; i++)
+            for (int i = 0; i < verticesAmt; i++)
+                forcesDict[i] = new Vector(0, 0);
+
+            for (int i = 0; i < verticesAmt; i++)
             {
                 var vert = Vertices[i];
 
@@ -145,14 +152,14 @@ namespace OMI_ForceDirectedGraph
             }
 
             // Apply Repulsive Forces:
-            closed = new bool[vertexAmount];
+            closed = new bool[verticesAmt];
 
-            for (int i = 0; i < vertexAmount; i++)
+            for (int i = 0; i < verticesAmt; i++)
             {
                 if (closed[i])
                     continue;
 
-                for (int j = i + 1; j < vertexAmount; j++)
+                for (int j = i + 1; j < verticesAmt; j++)
                 {
                     Vector oldForce = new Vector(0, 0);
                     Vector aForce = Algorithms.HCAttractive(Vertices[i], Vertices[j], aWeight);
@@ -164,7 +171,7 @@ namespace OMI_ForceDirectedGraph
                 }
             }
 
-            for (int i = 0; i < vertexAmount; i++)
+            for (int i = 0; i < verticesAmt; i++)
             {
                 if (forcesDict.ContainsKey(i))
                     Vertices[i].ApplyForce(forcesDict[i]);
