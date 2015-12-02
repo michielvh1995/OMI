@@ -18,7 +18,7 @@ namespace OMI_ForceDirectedGraph
             // Node visualization
             pen1 = new Pen(Color.Black, 1.5F);
             brush = new SolidBrush(Color.CornflowerBlue);
-            nodeSize = 8f;
+            nodeSize = 16f;
 
             // Connection visualization
             pen2 = new Pen(Color.Gray, 1.5F);

@@ -13,7 +13,7 @@ namespace OMI_ForceDirectedGraph
     {
         public Vector PositionVector { get; private set; }
         public HashSet<int> connectedVertexIDs;         // Should be private, for debugging reasons it's not
-        private readonly double mass;                   // Currently in use to ensure the nodes wont fly too far away
+        private readonly double mass;                   // Currently in use to ensure the nodes wont fly too far 
 
         // Allows for easier computations
         public int ID;
@@ -24,7 +24,7 @@ namespace OMI_ForceDirectedGraph
             this.ID = id;
             this.PositionVector = position;
             this.connectedVertexIDs = connections;
-            this.mass = 3;
+            this.mass = 1;
         }
 
         // Apply force function, requires the addition vector
