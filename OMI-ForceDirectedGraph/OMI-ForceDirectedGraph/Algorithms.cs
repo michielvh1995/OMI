@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Windows;
 
 namespace OMI_ForceDirectedGraph
 {
     internal class Algorithms
     {
+
+        private const double eta0 = 8.98755178764e7;
         /// <summary>
         /// Calculate the repulsive force between two vertices.
         /// This is done using Coulomb's Algorithm
@@ -22,12 +23,9 @@ namespace OMI_ForceDirectedGraph
             // The vector between the two vertices (basically the line connecting them)
             Vector r = Vertex.VectorBetween(node1, node2);
             double distance = Math.Abs(r.Length);
-            double max = 0.5;
             r.Normalize();
 
-            Interlocked.CompareExchange(ref max, distance, 0.5);
-
-            Vector forceVector = -r / (distance * distance);
+            Vector forceVector = 100 / (Math.PI * eta0) * r / (distance * distance);
 
             return rWeight * forceVector;
         }
@@ -42,13 +40,16 @@ namespace OMI_ForceDirectedGraph
         /// <returns></returns>
         public static Vector HCAttractive(Vertex node1, Vertex node2, double aWeight)
         {
+
+            // F= k*(l2-l1)
+
             Vector r = Vertex.VectorBetween(node1, node2);
             double distance = Math.Abs(r.Length);
             r.Normalize();
 
-            Vector forceVector = r * (distance - 25);
+            Vector forceVector = r * (distance - 1);
 
-            return aWeight * forceVector;
+            return aWeight * r;
         }
 
         /// <summary>
