@@ -7,13 +7,9 @@ using System.Drawing;
 
 namespace OMI_ForceDirectedGraph
 {
-    public class QualityTest
+    internal class QualityTest
     {
-        public QualityTest()
-        {
-        }
-
-        public int GetEdgeCrossings(Vertex[] vertices)
+        public static int GetEdgeCrossings(Vertex[] vertices)
         {
             int edgeCrossings = 0;
             Console.WriteLine("Getting edge crossings...");
@@ -43,7 +39,7 @@ namespace OMI_ForceDirectedGraph
 
         // Check whether two line segments cross each other
         // Source: http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/
-        private bool CheckCross(Vertex[] line1, Vertex[] line2)
+        private static bool CheckCross(Vertex[] line1, Vertex[] line2)
         {
             PointF p1 = new PointF((float)line1[0].PositionVector.X, (float)line1[0].PositionVector.Y);
             PointF p2 = new PointF((float)line1[1].PositionVector.X, (float)line1[1].PositionVector.Y);

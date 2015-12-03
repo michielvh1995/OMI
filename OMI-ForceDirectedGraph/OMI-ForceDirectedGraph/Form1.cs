@@ -200,6 +200,7 @@ namespace OMI_ForceDirectedGraph
                 Console.WriteLine(Vertices[i].PositionVector);
             Console.WriteLine();
 #endif
+            Console.WriteLine(QualityTest.GetEdgeCrossings(Vertices));
         }
     }
 }
