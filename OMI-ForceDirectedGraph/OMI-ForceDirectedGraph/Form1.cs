@@ -25,11 +25,7 @@ namespace OMI_ForceDirectedGraph
         static extern bool AllocConsole();
         #endregion
 
-<<<<<<< HEAD
         public const int VerticesAmt = 5;
-=======
-        public const int verticesAmt = 25;
->>>>>>> origin/master
 
         // Display object for drawing the graphs
         private readonly Display display = new Display();
@@ -92,13 +88,10 @@ namespace OMI_ForceDirectedGraph
         // Generate 25 vertices, each with a random position and up to 10 random connections
         private void GenerateVertices()
         {
-<<<<<<< HEAD
             for (int i = 0; i < VerticesAmt; i++)
-=======
             Vertices = new Vertex[verticesAmt];
             
             for (int i = 0; i < verticesAmt; i++)
->>>>>>> origin/master
             {
                 // Random Position
                 int x = rndGen.Next(10, 500);
@@ -119,7 +112,6 @@ namespace OMI_ForceDirectedGraph
                 Vertices[i] = new Vertex(i, new Vector(x, y), connectionSet);
             }
 
-<<<<<<< HEAD
             // Each of the connections should go both ways.
             for (int i = 0; i < VerticesAmt; i++)
             {
@@ -128,7 +120,6 @@ namespace OMI_ForceDirectedGraph
                     Vertices[connected].AddConnection(i);
                 }
             }
-=======
             // And now for some hacky magic:
             // Each connection goes both ways:
             for (int i = 0; i < verticesAmt; i++)
@@ -139,7 +130,6 @@ namespace OMI_ForceDirectedGraph
                         if (Vertices[j].ConnectedWith(Vertices[i]) && !Vertices[i].ConnectedWith(Vertices[j]))
                             Console.WriteLine("HELP");
                     }
->>>>>>> origin/master
         }
 
 
