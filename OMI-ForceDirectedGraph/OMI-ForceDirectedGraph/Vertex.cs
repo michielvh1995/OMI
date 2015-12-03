@@ -39,6 +39,11 @@ namespace OMI_ForceDirectedGraph
             return this.connectedVertexIDs.Contains(otherVertex.ID);
         }
 
+        public bool ConnectedWith(int otherID)
+        {
+            return this.connectedVertexIDs.Contains(otherID);
+        }
+
         // Get the amount of connections, this node has.
         public int GetConnectionCount()
         {
@@ -51,7 +56,10 @@ namespace OMI_ForceDirectedGraph
         {
             this.connectedVertexIDs.Add(otherVertex.ID);
         }
-        
+        public void AddConnection(int otherID)
+        {
+            this.connectedVertexIDs.Add(otherID);
+        }
 
 
         public static Vector VectorBetween(Vertex node1, Vertex node2)
