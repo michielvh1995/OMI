@@ -30,9 +30,6 @@ namespace OMI_ForceDirectedGraph
         // Display object for drawing the graphs
         private readonly Display display = new Display();
 
-        // Object for testing the quality of the graph
-        QualityTest qualityTest = new QualityTest();
-
         // A total of up to 25 vertices are allowed in the graph
         internal Vertex[] Vertices = new Vertex[VerticesAmt];
         private readonly Random rndGen = new Random();
@@ -89,13 +86,16 @@ namespace OMI_ForceDirectedGraph
         private void GenerateVertices()
         {
             for (int i = 0; i < VerticesAmt; i++)
+<<<<<<< HEAD
             Vertices = new Vertex[verticesAmt];
             
             for (int i = 0; i < verticesAmt; i++)
+=======
+>>>>>>> parent of 30dbd5a... Merge remote-tracking branch 'origin/master'
             {
                 // Random Position
-                int x = rndGen.Next(10, 500);
-                int y = rndGen.Next(10, 500);
+                int x = rndGen.Next(230, 270);
+                int y = rndGen.Next(230, 270);
 
                 // Random Connections 
                 int connections = 1 + rndGen.Next(2);
@@ -120,6 +120,7 @@ namespace OMI_ForceDirectedGraph
                     Vertices[connected].AddConnection(i);
                 }
             }
+<<<<<<< HEAD
             // And now for some hacky magic:
             // Each connection goes both ways:
             for (int i = 0; i < verticesAmt; i++)
@@ -130,6 +131,8 @@ namespace OMI_ForceDirectedGraph
                         if (Vertices[j].ConnectedWith(Vertices[i]) && !Vertices[i].ConnectedWith(Vertices[j]))
                             Console.WriteLine("HELP");
                     }
+=======
+>>>>>>> parent of 30dbd5a... Merge remote-tracking branch 'origin/master'
         }
 
 
@@ -154,7 +157,6 @@ namespace OMI_ForceDirectedGraph
                     if (closed[connection])
                         continue;
 
-<<<<<<< HEAD
                     Vector aForce = Algorithms.HCAttractive(Vertices[i], Vertices[connection], aWeight);
 
                     forcesDict[i] += aForce;
@@ -166,33 +168,9 @@ namespace OMI_ForceDirectedGraph
             // Add Repulsive Forces Into the mix:
             for (int i = 0; i < VerticesAmt; i++)
                 closed[i] = false;
-=======
-                    Vector oldForce = new Vector(0, 0);
-                    Vector aForce = Algorithms.HCAttractive(vert, Vertices[connection], aWeight);
-
-                    forcesDict.TryGetValue(i, out oldForce);
-
-                    forcesDict[i] = oldForce + aForce;
-                    forcesDict[connection] = oldForce - aForce;
-
-
-                    // Stappenplan (met opvang):
-                    // Alle nodes af gaan, 
-                    // alle connecties bekijken & alle andere nodes af gaan voor repulsive
-                    // Gooi de tegenovergestelde force bij de andere dingen (bij beide loops)
-                    // Al gesloten nodes worden geskipt
-                }
-
-                closed[i] = true;
-            }
-
-            // Apply Repulsive Forces:
-            closed = new bool[verticesAmt];
->>>>>>> origin/master
 
             Parallel.For(0, VerticesAmt - 1, i =>
             {
-<<<<<<< HEAD
                 for (int j = 0; j < VerticesAmt; j++)
                 {
                     if (closed[j] || i == j)
@@ -206,24 +184,6 @@ namespace OMI_ForceDirectedGraph
             });
 
             for (int i = 0; i < VerticesAmt; i++)
-=======
-                if (closed[i])
-                    continue;
-
-                for (int j = i + 1; j < verticesAmt; j++)
-                {
-                    Vector oldForce = new Vector(0, 0);
-                    Vector aForce = Algorithms.HCAttractive(Vertices[i], Vertices[j], aWeight);
-
-                    forcesDict.TryGetValue(i, out oldForce);
-
-                    forcesDict[i] = oldForce + aForce;
-                    forcesDict[j] = oldForce - aForce;
-                }
-            }
-
-            for (int i = 0; i < verticesAmt; i++)
->>>>>>> origin/master
             {
                 Vertices[i].ApplyForce(forcesDict[i]);
             }
@@ -235,31 +195,23 @@ namespace OMI_ForceDirectedGraph
         {
             if (Vertices[0] == null) return;
 
-            display.DrawGraph(e.Graphics, Vertices);            
+            display.DrawGraph(e.Graphics, Vertices);
         }
 
         private void GenerateButton_Click(object sender, EventArgs e)
         {
             this.GenerateVertices();
             pictureBox1.Invalidate();
-<<<<<<< HEAD
 
 #if DEBUG   // Testing
             this.testFunctions();
 #endif
-=======
-            Console.WriteLine(qualityTest.GetEdgeCrossings(Vertices));
->>>>>>> origin/master
         }
 
         private void ApplyForcesButton_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             for (int i = 0; i < 1000; i++)
                 this.updateForces();
-=======
-            this.updateForces();
->>>>>>> origin/master
             pictureBox1.Invalidate();
 
 #if DEBUG   // Testing
