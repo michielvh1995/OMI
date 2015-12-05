@@ -13,3 +13,5 @@ C:\Users\Jesse\Documents\Visual Studio 2013\Projects\Onderzoeksmethoden voor Gam
 C:\Users\Jesse\Documents\Visual Studio 2013\Projects\Onderzoeksmethoden voor Gametechnologie\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Debug\OMI-ForceDirectedGraph.csproj.GenerateResource.Cache
 C:\Users\Jesse\Documents\Visual Studio 2013\Projects\Onderzoeksmethoden voor Gametechnologie\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Debug\OMI-ForceDirectedGraph.exe
 C:\Users\Jesse\Documents\Visual Studio 2013\Projects\Onderzoeksmethoden voor Gametechnologie\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Debug\OMI-ForceDirectedGraph.pdb
+D:\Maurits\Documenten\Universiteit\Onderzoeksmethoden\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Debug\OMI-ForceDirectedGraph.exe
+D:\Maurits\Documenten\Universiteit\Onderzoeksmethoden\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Debug\OMI-ForceDirectedGraph.pdb
