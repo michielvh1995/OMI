@@ -25,7 +25,7 @@ namespace OMI_ForceDirectedGraph
             double max = 0.5;
             r.Normalize();
 
-            Interlocked.CompareExchange(ref max, distance, 0.5);
+            //Interlocked.CompareExchange(ref max, distance, 0.5);
 
             Vector forceVector = -r / (distance * distance);
 
@@ -76,6 +76,28 @@ namespace OMI_ForceDirectedGraph
             return s * (fAtt + fRep);
         }
 
+        public static Vector EadesRepulsive(Vertex node1, Vertex node2, double rWeight)
+        {
+            Vector r = Vertex.VectorBetween(node2, node1);
+            double distance = Math.Abs(r.Length);
+            r.Normalize();
+
+            Vector forceVector = r / (distance * distance);
+
+            return rWeight * forceVector;
+        }
+
+        public static Vector EadesAttractive(Vertex node1, Vertex node2, double aWeight, double aWeight2)
+        {
+            Vector r = Vertex.VectorBetween(node2, node1);
+            double distance = Math.Abs(r.Length);
+            r.Normalize();
+
+            Vector forceVector = r * Math.Log(distance / aWeight2, 2);
+
+            return aWeight * forceVector;
+        }
+
         /// <summary>
         /// Calculates the translation for Vertex node1 based on the repulsive and attractive forces between it and node2.
         /// The attractive and repulsive forces are calculated according to the optimal vertex distribution based on the algorithm of Fruchterman and Reingold
@@ -99,6 +121,33 @@ namespace OMI_ForceDirectedGraph
             Vector fRep = (-(k * k) / d) * rn;
 
             return s * (fAtt + fRep);
+        }
+
+        public static double FruchtReinConstant(Vertex node, double c, double radius)
+        {
+            return c * Math.Sqrt((Math.PI * radius * radius) / (1));
+        }
+
+        public static Vector FruchtReinRepulsive(Vertex node1, Vertex node2, double k, double weight)
+        {
+            Vector r = Vertex.VectorBetween(node1, node2);
+            double distance = Math.Abs(r.Length);
+            r.Normalize();
+
+            Vector forceVector = r * -(k * k) / distance;
+
+            return weight * forceVector;
+        }
+
+        public static Vector FruchtReinAttractive(Vertex node1, Vertex node2, double k, double weight)
+        {
+            Vector r = Vertex.VectorBetween(node1, node2);
+            double distance = Math.Abs(r.Length);
+            r.Normalize();
+
+            Vector forceVector = r * (distance * distance) / k;
+
+            return weight * forceVector;
         }
 
         /// <summary>

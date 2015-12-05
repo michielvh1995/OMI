@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -67,6 +68,95 @@ namespace OMI_ForceDirectedGraph
 
             // The segments intersect if t1 and t2 are between 0 and 1.
             return ((t1 >= 0) && (t1 <= 1) && (t2 >= 0) && (t2 <= 1));
+        }
+
+        // Calculates the total amount of unique edges
+        public static double getTotalEdges(Vertex[] vertices)
+        {
+            List<Tuple<int, int>> edgeList = new List<Tuple<int, int>>();
+            Tuple<int, int> index, inverseIndex;
+
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                foreach(int id in vertices[i].connectedVertexIDs)
+                {
+                    index = Tuple.Create<int, int>(i, id);
+                    inverseIndex = Tuple.Create<int, int>(id, i);
+                    if (!edgeList.Contains(index) && !edgeList.Contains(inverseIndex))
+                        edgeList.Add(index);
+                }
+            }
+
+            return edgeList.Count;
+        }
+
+        // Calculates the standard deviation of a set of data
+        private static double standardDeviation(double[] data)
+        {
+            int l = data.Length;
+            double avg = data.Average();
+            return Math.Sqrt(data.Select(d => (d - avg) * (d - avg)).Sum() / (l - 1));
+        }
+
+        // Calculates the dispersion of the edge lengths for each vertex using the coefficient of variation (standard deviation / median)
+        // This is usually a value between 0 and 1, though it can be up to sqrt(n - 1) with n the size fo the data set
+        public static double edgeLengthDispersion(Vertex[] vertices)
+        {
+            Dictionary<Tuple<int, int>, double> edgeDict = new Dictionary<Tuple<int, int>, double>();
+            Tuple<int, int> index, inverseIndex;
+
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                foreach (int id in vertices[i].connectedVertexIDs)
+                {
+                    index = Tuple.Create<int, int>(i, id);
+                    inverseIndex = Tuple.Create<int, int>(id, i);
+                    if (!edgeDict.ContainsKey(index) && !edgeDict.ContainsKey(inverseIndex))
+                        edgeDict.Add(index, Math.Abs(Vertex.VectorBetween(vertices[i], vertices[id]).Length));
+                }
+            }
+
+            return standardDeviation(edgeDict.Values.ToArray()) / edgeDict.Values.Average();
+        }
+
+        // Calculates the length of the diagonal of the axis-aligned bounding box of a set of vertices
+        private static double boundingBoxDiagonal(Vertex[] vertices)
+        {
+            double[] xPositions = vertices.Select(v => v.PositionVector.X).ToArray();
+            double[] yPositions = vertices.Select(v => v.PositionVector.Y).ToArray();
+
+            double minX = xPositions.Min();
+            double maxX = xPositions.Max();
+            double minY = yPositions.Min();
+            double maxY = yPositions.Max();
+
+            double deltaX = maxX - minX;
+            double deltaY = maxY - minY;
+
+            return Math.Sqrt(deltaX * deltaX + deltaY * deltaY);
+        }
+
+        // Calculates the dispersion of the vertex densities (the amount of vertices in a fixed radius around the vertex)
+        // for each vertex using the coefficient of variation (standard deviation / median).
+        // This is usually a value between 0 and 1, though it can be up to sqrt(n - 1) with n the size of the data set
+        public static double vertexDensityDispersion(Vertex[] vertices)
+        {
+            double radius = 0.2d * boundingBoxDiagonal(vertices) / 2d;
+            double[] vertexCounts = new double[vertices.Length];
+
+            for (int i = 0; i < vertexCounts.Length; i++ )
+                foreach (Vertex w in vertices)
+                    if (Math.Abs(Vertex.VectorBetween(vertices[i], w).Length) <= radius)
+                        vertexCounts[i]++;
+
+            return standardDeviation(vertexCounts) / vertexCounts.Average();
+        }
+
+        public static double qualityTest(Vertex[] vertices)
+        {
+            return GetEdgeCrossings(vertices) / getTotalEdges(vertices) +
+                   edgeLengthDispersion(vertices) +
+                   vertexDensityDispersion(vertices);
         }
     }
 
