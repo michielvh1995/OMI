@@ -10,6 +10,32 @@ namespace OMI_ForceDirectedGraph
 {
     internal class QualityTest
     {
+        public static List<double> GetEdgeLengths(Vertex[] vertices)
+        {
+            List<double> edgeLengths = new List<double>();
+
+            EdgeSet done = new EdgeSet();
+
+            foreach (Vertex vertex in vertices)
+            {
+                foreach (var connectedVert in vertex.connectedVertexIDs)
+                {
+                    Vertex[] edge = { vertex, vertices[connectedVert] };
+                    if (done.Add(edge))
+                    {
+                        double a = Math.Abs((float)edge[0].PositionVector.X - (float)edge[1].PositionVector.X);
+                        double b = Math.Abs((float)edge[0].PositionVector.Y - (float)edge[1].PositionVector.Y);
+
+                        double edgeLength = Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
+
+                        edgeLengths.Add(edgeLength);
+                    }
+                }
+            }
+
+            return edgeLengths;
+        }
+
         public static int GetEdgeCrossings(Vertex[] vertices)
         {
             int edgeCrossings = 0;
@@ -226,6 +252,54 @@ namespace OMI_ForceDirectedGraph
                 }
                 Console.Write("]\n");
             }
+        }
+    }
+
+    // Class that stores a list of unique edges
+    public class EdgeSet
+    {
+        HashSet<PointF[]> set;
+
+        public EdgeSet()
+        {
+            set = new HashSet<PointF[]>();            
+        }
+
+        public bool Add(Vertex[] Edge)
+        {
+            PointF[] addingEdge = VertToPoint(Edge);
+
+            foreach (var edge in set)
+            {
+                if ((edge[0] == addingEdge[0] && edge[1] == addingEdge[1]) ||
+                    (edge[1] == addingEdge[0] && edge[0] == addingEdge[1]))
+                {
+                    return false;
+                }
+            }
+
+            set.Add(addingEdge);
+            return true;
+        }
+
+        public void printSet()
+        {
+            foreach (var edge in set)
+            {
+                Console.WriteLine("(" + edge[0].X + ", " + edge[0].Y + ") - (" + edge[1].X + ", " + edge[1].Y + ")");
+            }
+        }
+
+        private PointF[] VertToPoint(Vertex[] input)
+        {
+            PointF[] edge = new PointF[2];
+
+            edge[0].X = (float)input[0].PositionVector.X;
+            edge[0].Y = (float)input[0].PositionVector.Y;
+            edge[1].X = (float)input[1].PositionVector.X;
+            edge[1].Y = (float)input[1].PositionVector.Y;
+
+            return edge;
         }
     }
 }
