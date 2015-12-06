@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace OMI_ForceDirectedGraph
 {
-    class Tests
+    partial class Tests
     {
         #region fields
         private static readonly Random rndGen = new Random();
@@ -53,22 +53,6 @@ namespace OMI_ForceDirectedGraph
         // We'll try out the algorithms and algorithm settings on a maximum of 10 distinct graphs
         public const int maxGraphs = 10;
         #endregion
-
-        // Generates a number of graphs and writes them to graphs.txt.
-        // One-time use only! These graphs are the ones we'll use for all tests!
-        public static void CreateGraphs(int maxGraphs, int graphSize)
-        {
-            List<string> lines = new List<string>();
-
-            for (int i = 0; i < maxGraphs; i++)
-            {
-                lines = lines.Concat(GraphToStrings(GenerateVertices(graphSize))).ToList();
-                lines.Add("");
-            }
-            lines.RemoveAt(lines.Count - 1);
-
-            File.WriteAllLines(Directory.GetCurrentDirectory() + @"\graphs.txt", lines);
-        }
 
         // Generates a specified number of vertices and their connections
         // Guaranteed is that the graph that these vertices form will be completely connected,
@@ -121,33 +105,10 @@ namespace OMI_ForceDirectedGraph
             return Vertices;
         }
 
-        // Converts a list of vertices to a list of strings
-        // Helper function for CreateGraphs
-        private static List<string> GraphToStrings(Vertex[] vertices)
-        {
-            List<string> lines = new List<string>();
-            string id, x, y, connections;
-
-            for (int i = 0; i < vertices.Length; i++)
-            {
-                id = vertices[i].ID.ToString();
-                x = vertices[i].PositionVector.X.ToString();
-                y = vertices[i].PositionVector.Y.ToString();
-                connections = string.Join(",", vertices[i].connectedVertexIDs.ToArray());
-
-                lines.Add(id + " " + x + " " + y + " " + connections);
-            }
-
-            return lines;
-        }
-
         // Conduct the full set of tests for different algorithms, graphs and constant values
         public static void ConductTests()
         {
-            Vertex[][] graphs = new Vertex[maxGraphs][];
-
-            for (int i = 0; i < maxGraphs; i++)
-                graphs[i] = GenerateVertices(VerticesAmt);
+            Vertex[][] graphs = LoadGraphs().ToArray();
 
             //Hooke-Coulomb algorithm
             for (int i = 0; i < maxGraphs; i++)
@@ -213,6 +174,8 @@ namespace OMI_ForceDirectedGraph
                     }
                 }
             }
+
+            //WriteTestResults(); //Uncomment this line to write the test results to a file
         }
 
         // A helper function to linearly interpolate between two values
