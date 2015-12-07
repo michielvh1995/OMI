@@ -22,10 +22,7 @@ namespace OMI_ForceDirectedGraph
             // The vector between the two vertices (basically the line connecting them)
             Vector r = Vertex.VectorBetween(node1, node2);
             double distance = Math.Abs(r.Length);
-            double max = 0.5;
             r.Normalize();
-
-            //Interlocked.CompareExchange(ref max, distance, 0.5);
 
             Vector forceVector = -r / (distance * distance);
 
@@ -123,7 +120,7 @@ namespace OMI_ForceDirectedGraph
             return s * (fAtt + fRep);
         }
 
-        public static double FruchtReinConstant(Vertex node, double c, double radius)
+        public static double FruchtReinConstant(double c, double radius)
         {
             return c * Math.Sqrt((Math.PI * radius * radius) / (1));
         }

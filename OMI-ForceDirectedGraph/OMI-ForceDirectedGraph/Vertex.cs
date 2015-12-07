@@ -50,6 +50,14 @@ namespace OMI_ForceDirectedGraph
             return this.connectedVertexIDs.Count;
         }
 
+        public override string ToString()
+        {
+            string connections = string.Join(",", connectedVertexIDs);
+
+            return ID + ":" + this.PositionVector.X + "," + this.PositionVector.X + "|" + connections + ";";
+        }
+
+
         // Add a new connection
         // Should not be used when the nodes are properly generated
         public void AddConnection(Vertex otherVertex)

@@ -29,9 +29,15 @@ namespace OMI_ForceDirectedGraph
         // Note that for the Hooke-Coulomb algorithm the third (last) constant value in the key will always be 0
         private static Dictionary<Tuple<AlgorithmType, int, double, double, double>, double> testResults = new Dictionary<Tuple<AlgorithmType, int, double, double, double>, double>();
 
+
+
+        // The test values, these will be changed during the tests
+        public static double RWeight = 1;
+        public static double AWeight = 1;
+
+
+
         // Define the weights for the repulsive and attractive forces
-        private static double rWeight = 1;
-        private static double aWeight = 1;
         private static double logAWeight = 1;
         private static double FRWeight = 1;
         private static double FRConstant = 1;
@@ -116,15 +122,15 @@ namespace OMI_ForceDirectedGraph
                 Vertices = graphs[i];
                 for (int j = 0; j < maxConstantSettings; j++)
                 {
-                    aWeight = Lerp(aWeightRange.X, aWeightRange.Y, j * (1d / (maxConstantSettings - 1)));
+                    AWeight = Lerp(aWeightRange.X, aWeightRange.Y, j * (1d / (maxConstantSettings - 1)));
                     for (int k = 0; k < maxConstantSettings; k++)
                     {
-                        rWeight = Lerp(rWeightRange.X, rWeightRange.Y, k * (1d / (maxConstantSettings - 1)));
+                        RWeight = Lerp(rWeightRange.X, rWeightRange.Y, k * (1d / (maxConstantSettings - 1)));
                         for (int l = 0; l < maxIterations; l++)
                         {
                             UpdateForces(AlgorithmType.HookeCoulomb);
                         }
-                        testResults.Add(Tuple.Create<AlgorithmType, int, double, double, double>(AlgorithmType.HookeCoulomb, i, aWeight, rWeight, 0), QualityTest.qualityTest(Vertices));
+                        testResults.Add(Tuple.Create<AlgorithmType, int, double, double, double>(AlgorithmType.HookeCoulomb, i, AWeight, RWeight, 0), QualityTest.qualityTest(Vertices));
                     }
                 }
             }
@@ -135,18 +141,18 @@ namespace OMI_ForceDirectedGraph
                 Vertices = graphs[i];
                 for (int j = 0; j < maxConstantSettings; j++)
                 {
-                    aWeight = Lerp(aWeightRange.X, aWeightRange.Y, j * (1d / (maxConstantSettings - 1)));
+                    AWeight = Lerp(aWeightRange.X, aWeightRange.Y, j * (1d / (maxConstantSettings - 1)));
                     for (int k = 0; k < maxConstantSettings; k++)
                     {
                         logAWeight = Lerp(logAWeightRange.X, logAWeightRange.Y, k * (1d / (maxConstantSettings - 1)));
                         for (int l = 0; l < maxIterations; l++)
                         {
-                            rWeight = Lerp(rWeightRange.X, rWeightRange.Y, l * (1d / (maxConstantSettings - 1)));
+                            RWeight = Lerp(rWeightRange.X, rWeightRange.Y, l * (1d / (maxConstantSettings - 1)));
                             for (int m = 0; m < maxIterations; m++)
                             {
                                 UpdateForces(AlgorithmType.Eades);
                             }
-                            testResults.Add(Tuple.Create<AlgorithmType, int, double, double, double>(AlgorithmType.Eades, i, aWeight, logAWeight, rWeight), QualityTest.qualityTest(Vertices));
+                            testResults.Add(Tuple.Create<AlgorithmType, int, double, double, double>(AlgorithmType.Eades, i, AWeight, logAWeight, RWeight), QualityTest.qualityTest(Vertices));
                         }
                     }
                 }
@@ -190,9 +196,9 @@ namespace OMI_ForceDirectedGraph
             switch (type)
             {
                 case AlgorithmType.HookeCoulomb:
-                    return Algorithms.HCAttractive(node1, node2, aWeight);
+                    return Algorithms.HCAttractive(node1, node2, AWeight);
                 case AlgorithmType.Eades:
-                    return Algorithms.EadesAttractive(node1, node2, aWeight, logAWeight);
+                    return Algorithms.EadesAttractive(node1, node2, AWeight, logAWeight);
                 case AlgorithmType.FruchtRein:
                     return Algorithms.FruchtReinAttractive(node1, node2, k, FRWeight);
                 default:
@@ -206,9 +212,9 @@ namespace OMI_ForceDirectedGraph
             switch (type)
             {
                 case AlgorithmType.HookeCoulomb:
-                    return Algorithms.HCRepulsive(node1, node2, rWeight);
+                    return Algorithms.HCRepulsive(node1, node2, RWeight);
                 case AlgorithmType.Eades:
-                    return Algorithms.EadesRepulsive(node1, node2, rWeight);
+                    return Algorithms.EadesRepulsive(node1, node2, RWeight);
                 case AlgorithmType.FruchtRein:
                     return Algorithms.FruchtReinRepulsive(node1, node2, k, FRWeight);
                 default:
@@ -223,20 +229,20 @@ namespace OMI_ForceDirectedGraph
             var forcesDict = new ConcurrentDictionary<int, Vector>();
             var closed = new ConcurrentDictionary<int, bool>();
 
-            //Used only when using the FruchtRein algorithm
-            double k = 0;
+            // Declared and calculated, but only used in the FruchtRein formula
+            double k = Algorithms.FruchtReinConstant(FRConstant, radius);
 
             // Needs to be instantiated to something
             for (int i = 0; i < VerticesAmt; i++)
                 forcesDict[i] = new Vector(0, 0);
 
+            // Same goes
             for (int i = 0; i < VerticesAmt; i++)
                 closed[i] = false;
 
+            // Calculate the attractive forces parallelly
             Parallel.For(0, VerticesAmt - 1, i =>
             {
-                k = type == AlgorithmType.FruchtRein ? Algorithms.FruchtReinConstant(Vertices[i], FRConstant, radius) : 0;
-
                 foreach (int connection in Vertices[i].connectedVertexIDs)
                 {
                     if (closed[connection])
@@ -256,8 +262,6 @@ namespace OMI_ForceDirectedGraph
 
             Parallel.For(0, VerticesAmt - 1, i =>
             {
-                k = type == AlgorithmType.FruchtRein ? Algorithms.FruchtReinConstant(Vertices[i], FRConstant, radius) : 0;
-
                 for (int j = 0; j < VerticesAmt; j++)
                 {
                     if (closed[j] || i == j)
@@ -270,6 +274,8 @@ namespace OMI_ForceDirectedGraph
                 closed[i] = true;
             });
 
+            // We calculated the forces that needed to be applied and put that into the Dictionary
+            // Now we need to apply the forces to the nodes
             for (int i = 0; i < VerticesAmt; i++)
             {
                 Vertices[i].ApplyForce(forcesDict[i]);
