@@ -20,8 +20,8 @@ namespace OMI_ForceDirectedGraph
         #region fields
         // The names of the constants used in the tests
         // Used when writing the test results to a file
-        private static readonly string[] HKConsts = new string[2] { "aWeight", "rWeight" };
-        private static readonly string[] EaConsts = new string[3] { "aWeight", "logAWeight", "rWeight" };
+        private static readonly string[] HKConsts = new string[2] { "AWeight", "RWeight" };
+        private static readonly string[] EaConsts = new string[3] { "AWeight", "logAWeight", "RWeight" };
         private static readonly string[] FRConsts = new string[3] { "FRWeight", "FRConstant", "radius" };
         private static readonly string[][] ConstNames = new string[3][] { HKConsts, EaConsts, FRConsts };
         #endregion

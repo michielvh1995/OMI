@@ -102,7 +102,7 @@ namespace OMI_ForceDirectedGraph
             Console.WriteLine(QualityTest.GetEdgeCrossings(Tests.Vertices));
 
             // Store the Graph in a file with the parameters
-            Console.WriteLine(Save.SaveGraph(new[] { Tests.aWeight, Tests.rWeight }, Tests.Vertices));
+            Console.WriteLine(Save.SaveGraph(new[] { Tests.AWeight, Tests.RWeight }, Tests.Vertices));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -121,7 +121,7 @@ namespace OMI_ForceDirectedGraph
                     Console.WriteLine(QualityTest.GetEdgeCrossings(Tests.Vertices));
 
                     // Store the Graph in a file with the parameters
-                    Console.WriteLine(Save.SaveGraph(new[] { Tests.aWeight, Tests.rWeight }, Tests.Vertices));
+                    Console.WriteLine(Save.SaveGraph(new[] { Tests.AWeight, Tests.RWeight }, Tests.Vertices));
                 }
             });
 
