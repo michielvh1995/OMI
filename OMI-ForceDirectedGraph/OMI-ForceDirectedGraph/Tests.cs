@@ -18,8 +18,15 @@ namespace OMI_ForceDirectedGraph
     partial class Tests
     {
         #region fields
+        // Random number generator
         private static readonly Random rndGen = new Random();
 
+        // A string pointing to the directory of the source files of the project.
+        // This enables the graph.txt and results.txt files to be committed as well so that all members of the team will
+        // have access to and use the same data
+        private static readonly string SourceDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+
+        // The algorithm types, used for various encoding purposes
         public enum AlgorithmType { HookeCoulomb, Eades, FruchtRein };
 
         // A total of up to verticesAmt vertices are allowed in the graph
@@ -43,6 +50,7 @@ namespace OMI_ForceDirectedGraph
         private static double FRConstant = 1;
         private static double radius = 1;
 
+        // The testing ranges for each of the variables
         private static Vector rWeightRange = new Vector(0, 1);
         private static Vector aWeightRange = new Vector(0, 1);
         private static Vector logAWeightRange = new Vector(0, 1);
@@ -51,9 +59,9 @@ namespace OMI_ForceDirectedGraph
         private static Vector radiusRange = new Vector(0, 1);
 
         // The maximum amount of vertices in a graph
-        public const int VerticesAmt = 5;
+        public const int VerticesAmt = 20;
         // each run we will have up to a maximum of 100 iterations of calculating and apply force before we stop it
-        public const int maxIterations = 100;
+        public const int maxIterations = 1;
         // We'll try a maximum of 10 settings for each parameter, spread linearly across its range
         public const int maxConstantSettings = 10;
         // We'll try out the algorithms and algorithm settings on a maximum of 10 distinct graphs
@@ -68,8 +76,8 @@ namespace OMI_ForceDirectedGraph
             for (int i = 0; i < amount; i++)
             {
                 // Random Position
-                int x = rndGen.Next(230, 270);
-                int y = rndGen.Next(230, 270);
+                int x = rndGen.Next(100, 400);
+                int y = rndGen.Next(100, 400);
 
                 // Random Connections 
                 int connections = rndGen.Next(2);
@@ -145,7 +153,7 @@ namespace OMI_ForceDirectedGraph
                     for (int k = 0; k < maxConstantSettings; k++)
                     {
                         logAWeight = Lerp(logAWeightRange.X, logAWeightRange.Y, k * (1d / (maxConstantSettings - 1)));
-                        for (int l = 0; l < maxIterations; l++)
+                        for (int l = 0; l < maxConstantSettings; l++)
                         {
                             RWeight = Lerp(rWeightRange.X, rWeightRange.Y, l * (1d / (maxConstantSettings - 1)));
                             for (int m = 0; m < maxIterations; m++)
@@ -168,7 +176,7 @@ namespace OMI_ForceDirectedGraph
                     for (int k = 0; k < maxConstantSettings; k++)
                     {
                         FRConstant = Lerp(FRConstantRange.X, FRConstantRange.Y, k * (1d / (maxConstantSettings - 1)));
-                        for (int l = 0; l < maxIterations; l++)
+                        for (int l = 0; l < maxConstantSettings; l++)
                         {
                             radius = Lerp(radiusRange.X, radiusRange.Y, l * (1d / (maxConstantSettings - 1)));
                             for (int m = 0; m < maxIterations; m++)
@@ -181,7 +189,7 @@ namespace OMI_ForceDirectedGraph
                 }
             }
 
-            //WriteTestResults(); //Uncomment this line to write the test results to a file
+            WriteTestResults(); //Uncomment this line to write the test results to a file
         }
 
         // A helper function to linearly interpolate between two values

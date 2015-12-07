@@ -17,6 +17,7 @@ namespace OMI_ForceDirectedGraph
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Tests.ConductTests();
             Application.Run(new Form1());
         }
     }

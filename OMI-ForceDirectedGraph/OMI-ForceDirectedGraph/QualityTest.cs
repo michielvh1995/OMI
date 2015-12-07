@@ -13,7 +13,7 @@ namespace OMI_ForceDirectedGraph
         public static int GetEdgeCrossings(Vertex[] vertices)
         {
             int edgeCrossings = 0;
-            Console.WriteLine("Getting edge crossings...");
+            //Console.WriteLine("Getting edge crossings...");
 
             EdgeCrossingSet done = new EdgeCrossingSet();
             foreach (var vertex in vertices)
