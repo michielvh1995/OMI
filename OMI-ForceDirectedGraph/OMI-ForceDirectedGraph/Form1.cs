@@ -35,71 +35,19 @@ namespace OMI_ForceDirectedGraph
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Just here to test whether everything works
-        /// </summary>
-        void testFunctions()
-        {
-            // Whether all connections are correct
-            bool worker = true;
-            for (int i = 0; i < Tests.VerticesAmt; i++)
-            {
-                foreach (int connection in Tests.Vertices[i].connectedVertexIDs)
-                {
-                    if (!Tests.Vertices[connection].ConnectedWith(i))
-                        worker = false;
-                }
-            }
-            Console.WriteLine(worker);
-
-            int cnt = 0;
-            for (int i = 0; i < Tests.VerticesAmt; i++)
-            {
-                for (int j = i + 1; j < Tests.VerticesAmt; j++)
-                {
-                    if (Tests.Vertices[i].ConnectedWith(j))
-                        cnt++;
-                }
-            }
-            Console.WriteLine(cnt);
-
-            foreach (var v in Tests.Vertices)
-            {
-                Console.Write(v.GetConnectionCount() + " ");
-            }
-            Console.WriteLine();
-        }
-
+        
         // Displaying the vertices
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            if (Tests.Vertices[0] == null) return;
-
-            display.DrawGraph(e.Graphics, Tests.Vertices);
+            return;
         }
 
         private void GenerateButton_Click(object sender, EventArgs e)
         {
-            Tests.GenerateVertices(Tests.VerticesAmt);
-            pictureBox1.Invalidate();
-#if DEBUG   // Testing
-            this.testFunctions();
-#endif
         }
 
         private void ApplyForcesButton_Click(object sender, EventArgs e)
         {
-            // Calculate and apply the forces n times, where n = maxIterations
-            for (int i = 0; i < Tests.maxIterations; i++)
-                Tests.UpdateForces(Tests.AlgorithmType.HookeCoulomb);
-            pictureBox1.Invalidate();
-
-#if DEBUG   // Testing
-            for (int i = 0; i < Tests.VerticesAmt; i++)
-                Console.WriteLine(Tests.Vertices[i].PositionVector);
-            Console.WriteLine();
-#endif
-            Console.WriteLine(QualityTest.GetEdgeCrossings(Tests.Vertices));
         }
 
         private void button1_Click(object sender, EventArgs e)

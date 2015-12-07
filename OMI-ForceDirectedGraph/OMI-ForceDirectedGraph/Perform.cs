@@ -19,8 +19,8 @@ namespace OMI_ForceDirectedGraph
             for (int i = 0; i < verticesAmt; i++)
             {
                 // Random Position
-                int x = StaticRandom.Rand(0, verticesAmt);
-                int y = StaticRandom.Rand(0, verticesAmt);
+                int x = StaticRandom.Rand(100, 400);
+                int y = StaticRandom.Rand(100, 400);
 
                 // Random Connections 
                 int connections = 1 + StaticRandom.Rand(0, 2);
@@ -131,7 +131,7 @@ namespace OMI_ForceDirectedGraph
                         updateForces(verticesAmt, vertices, aW, rW);
 
                     // And put the quality of the graph into a Tuple along with its a and r weights
-                    Tuple<double[], double[]> outTuple = new Tuple<double[], double[]>(new []{aW,rW},QualityTest.TestAll(vertices));
+                    Tuple<double[], double[]> outTuple = new Tuple<double[], double[]>(new[] { aW, rW }, QualityTest.TestAll(vertices));
 
                     qualityVar.Add(outTuple);
 
