@@ -14,7 +14,7 @@ namespace OMI_ForceDirectedGraph
         {
             double[] nameDoubles = new double[paramStrings.Length];
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < paramStrings.Length; i++)
                 nameDoubles[i] = paramStrings[i] * 10;
 
             String fileName = "/output/graph" + String.Join("", nameDoubles) + ".txt";

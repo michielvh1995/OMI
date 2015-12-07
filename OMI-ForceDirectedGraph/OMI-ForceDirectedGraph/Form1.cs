@@ -50,11 +50,22 @@ namespace OMI_ForceDirectedGraph
         {
         }
 
+        // Used when there are only 2 vars required for the tests
         private void button1_Click(object sender, EventArgs e)
         {
             // Parallelised the execution of the tests.
             Stopwatch timer = Stopwatch.StartNew();
             Perform.ExecuteTests();
+            Console.WriteLine(timer.ElapsedMilliseconds + " millis");
+            timer.Stop();
+        }
+
+        // Used when you need 3 input vars for the tests
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Parallelised the execution of the tests.
+            Stopwatch timer = Stopwatch.StartNew();
+            Perform.ExecuteTestsTri();
             Console.WriteLine(timer.ElapsedMilliseconds + " millis");
             timer.Stop();
         }

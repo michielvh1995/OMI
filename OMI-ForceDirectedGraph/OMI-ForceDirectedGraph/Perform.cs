@@ -1,4 +1,9 @@
-﻿using System;
+﻿#undef HC
+#define FR
+#undef Eades
+
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,7 +54,7 @@ namespace OMI_ForceDirectedGraph
 
 
         // Main function:
-        private static Vertex[] updateForces(int VerticesAmt, Vertex[] Vertices, double aWeight, double rWeight)
+        private static Vertex[] updateForces(int VerticesAmt, Vertex[] Vertices, double aWeight, double rWeight, double k = 0)
         {
             // Works the same way as array, but can be used concurrently (as we're both reading and writing)
             var forcesDict = new Dictionary<int, Vector>();
@@ -62,6 +67,14 @@ namespace OMI_ForceDirectedGraph
             for (int i = 0; i < VerticesAmt; i++)
                 closed[i] = false;
 
+#if FR
+            // Omdat FurchtRein raar is:
+            // radius <- rWeight,
+            // rWeight == aWeight <- aWeight
+            // k <- k
+            Double FRConstant = Algorithms.FruchtReinConstant(k, rWeight);
+#endif
+
             for (int i = 0; i < VerticesAmt; i++)
             {
                 foreach (int connection in Vertices[i].connectedVertexIDs)
@@ -69,7 +82,14 @@ namespace OMI_ForceDirectedGraph
                     if (closed[connection])
                         continue;
 
+#if HC
                     Vector aForce = Algorithms.HCAttractive(Vertices[i], Vertices[connection], aWeight);
+#elif FR
+                    
+                    Vector aForce = Algorithms.FruchtReinAttractive(Vertices[i], Vertices[connection], FRConstant, aWeight);
+#elif Eades
+                    Vector aForce = Algorithms.EadesAttractive(Vertices[i],Vertices[connection],aWeight,k);
+#endif
 
                     forcesDict[i] += aForce;
                 }
@@ -89,16 +109,14 @@ namespace OMI_ForceDirectedGraph
                     if (closed[j] || i == j)
                         continue;
 
-                    Vertex node1 = Vertices[i];
-                    Vertex node2 = Vertices[j];
-                    // The vector between the two vertices (basically the line connecting them)
-                    Vector r = Vertex.VectorBetween(node1, node2);
-                    double distance = Math.Abs(r.Length);
-                    r.Normalize();
 
-                    Vector forceVector = -r / (distance * distance);
-                    Vector rForce = rWeight * forceVector;
-
+#if HC
+                    Vector rForce = Algorithms.HCRepulsive(Vertices[i], Vertices[j], rWeight);
+#elif FR
+                    Vector rForce = Algorithms.FruchtReinRepulsive(Vertices[i], Vertices[j], FRConstant, aWeight);
+#elif Eades
+                    Vector rForce = Algorithms.EadesRepulsive(Vertices[i], Vertices[j], rWeight);
+#endif
                     forcesDict[i] += rForce;
                 }
                 closed[i] = true;
@@ -157,6 +175,58 @@ namespace OMI_ForceDirectedGraph
 
                 String qualityString = "aW " + fst.Item1[0] + "|aR " + fst.Item1[1] +
                    "|" + String.Join(",", fst.Item2) + ";";
+
+                output[i] = qualityString;
+            }
+            return output;
+        }
+
+        // Loop over all possible combinations between aWeight and rWeight (delta a,r = 1)
+        public static void ExecuteTestsTri()
+        {
+            int verticesAmt = 10;
+
+            var qualityVar = new ConcurrentBag<Tuple<double[], double[]>>();
+
+            Parallel.For(1, 10, aw10 =>
+            {
+                double aW = (double)aw10 / 10;
+                for (double rW = 0.1; rW < 1; rW += 0.1)
+                {
+                    for (double k = 0.1; k < 1; k += 0.1)
+                    {
+                        Vertex[] vertices = GenerateVertices(verticesAmt);
+
+                        for (int i = 0; i < 1000; i++)
+                            updateForces(verticesAmt, vertices, aW, rW, k);
+
+                        // And put the quality of the graph into a Tuple along with its a and r weights
+                        var outTuple = new Tuple<double[], double[]>(new[] { aW, rW, k }, QualityTest.TestAll(vertices));
+
+                        qualityVar.Add(outTuple);
+
+                        // Store the Graph in a file with the parameters
+                        Save.SaveGraph(new[] { aW, rW, k }, vertices);
+                    }
+                }
+            });
+
+            // Save the string array into a file
+            Save.SaveStrings(getQualitiesStringsTri(qualityVar));
+        }
+
+        private static string[] getQualitiesStringsTri(ConcurrentBag<Tuple<double[], double[]>> bag)
+        {
+            int size = bag.Count;
+            string[] output = new string[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                Tuple<double[], double[]> fst;
+                bag.TryTake(out fst);
+
+                String qualityString = "aW " + fst.Item1[0] + "|aR " + fst.Item1[1] +
+                   "|k " + fst.Item1[2] + "|" + String.Join(",", fst.Item2) + ";";
 
                 output[i] = qualityString;
             }
