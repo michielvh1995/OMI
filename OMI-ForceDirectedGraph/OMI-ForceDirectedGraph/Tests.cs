@@ -122,7 +122,7 @@ namespace OMI_ForceDirectedGraph
         // Conduct the full set of tests for different algorithms, graphs and constant values
         public static void ConductTests()
         {
-            Vertex[][] graphs = LoadGraphs().ToArray();
+            Vertex[][] graphs = null;//LoadGraphs().ToArray();
 
             //Hooke-Coulomb algorithm
             for (int i = 0; i < maxGraphs; i++)
@@ -189,7 +189,7 @@ namespace OMI_ForceDirectedGraph
                 }
             }
 
-            WriteTestResults(); //Uncomment this line to write the test results to a file
+            //WriteTestResults(); //Uncomment this line to write the test results to a file
         }
 
         // A helper function to linearly interpolate between two values

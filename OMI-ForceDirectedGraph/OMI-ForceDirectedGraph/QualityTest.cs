@@ -34,9 +34,9 @@ namespace OMI_ForceDirectedGraph
                     }
                 }
             }
-            
+
             return edgeCrossings;
-        }        
+        }
 
         // Check whether two line segments cross each other
         // Source: http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/
@@ -78,7 +78,7 @@ namespace OMI_ForceDirectedGraph
 
             for (int i = 0; i < vertices.Length; i++)
             {
-                foreach(int id in vertices[i].connectedVertexIDs)
+                foreach (int id in vertices[i].connectedVertexIDs)
                 {
                     index = Tuple.Create<int, int>(i, id);
                     inverseIndex = Tuple.Create<int, int>(id, i);
@@ -144,7 +144,7 @@ namespace OMI_ForceDirectedGraph
             double radius = 0.2d * boundingBoxDiagonal(vertices) / 2d;
             double[] vertexCounts = new double[vertices.Length];
 
-            for (int i = 0; i < vertexCounts.Length; i++ )
+            for (int i = 0; i < vertexCounts.Length; i++)
                 foreach (Vertex w in vertices)
                     if (Math.Abs(Vertex.VectorBetween(vertices[i], w).Length) <= radius)
                         vertexCounts[i]++;
@@ -158,6 +158,16 @@ namespace OMI_ForceDirectedGraph
                    edgeLengthDispersion(vertices) +
                    vertexDensityDispersion(vertices);
         }
+
+        public static double[] TestAll(Vertex[] vertices)
+        {
+            return new[]
+            {
+                GetEdgeCrossings(vertices),getTotalEdges(vertices),
+                edgeLengthDispersion(vertices),
+                vertexDensityDispersion(vertices)
+            };
+        }
     }
 
     // Class that stores a list of unique edge crossings
@@ -166,7 +176,7 @@ namespace OMI_ForceDirectedGraph
     // varName.Add(edge1, edge2);
     //
     // *edge1 and edge2 are of type Vertex[] and each contain the two vertices of an edge.
-    public class EdgeCrossingSet
+    internal class EdgeCrossingSet
     {
         List<HashSet<PointF>> set;
 

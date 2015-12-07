@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -98,36 +99,16 @@ namespace OMI_ForceDirectedGraph
                 Console.WriteLine(Tests.Vertices[i].PositionVector);
             Console.WriteLine();
 #endif
-<<<<<<< HEAD
             Console.WriteLine(QualityTest.GetEdgeCrossings(Tests.Vertices));
-
-            // Store the Graph in a file with the parameters
-            Console.WriteLine(Save.SaveGraph(new[] { Tests.AWeight, Tests.RWeight }, Tests.Vertices));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             // Parallelised the execution of the tests.
-            Parallel.For(0, 10, aw10 =>
-            {
-                double aW = (double)aw10 / 10;
-                for (double rW = 0; rW < 1; rW += 1)
-                {
-                    Tests.GenerateVertices(Tests.VerticesAmt);
-
-                    for (int i = 0; i < 100; i++)
-                        Tests.UpdateForces(Tests.AlgorithmType.HookeCoulomb);
-
-                    Console.WriteLine(QualityTest.GetEdgeCrossings(Tests.Vertices));
-
-                    // Store the Graph in a file with the parameters
-                    Console.WriteLine(Save.SaveGraph(new[] { Tests.AWeight, Tests.RWeight }, Tests.Vertices));
-                }
-            });
-
-=======
-            Console.WriteLine(QualityTest.qualityTest(Tests.Vertices));
->>>>>>> origin/master
+            Stopwatch timer = Stopwatch.StartNew();
+            Perform.ExecuteTests();
+            Console.WriteLine(timer.ElapsedMilliseconds + " millis");
+            timer.Stop();
         }
     }
 }

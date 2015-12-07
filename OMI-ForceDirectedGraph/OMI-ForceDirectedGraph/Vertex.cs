@@ -18,6 +18,11 @@ namespace OMI_ForceDirectedGraph
         // Allows for easier computations
         public int ID;
 
+
+        public Vertex()
+        {
+        }
+
         // Constructor function
         public Vertex(int id, Vector position, HashSet<int> connections)
         {
