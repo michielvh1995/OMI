@@ -28,26 +28,26 @@ namespace OMI_ForceDirectedGraph
 
         // Generates a number of graphs and writes them to graphs.txt.
         // One-time use only! These graphs are the ones we'll use for all tests!
-        public static void CreateGraphs(int maxGraphs, int graphSize)
+        public static void CreateGraphs()
         {
-            if (File.Exists(Directory.GetCurrentDirectory() + @"\graphs.txt"))              // Prevent accidental overwriting of our test graphs
+            if (File.Exists(SourceDirectory + @"\graphs.txt"))              // Prevent accidental overwriting of our test graphs
                 return;
 
             List<string> lines = new List<string>();
 
-            for (int i = 0; i < maxGraphs; i++)                                             // Note that this leaves an empty line at the end of the file - this is intended!
-            {                                                                               // This allows LoadGraphs to separate the lines into parts belonging to each graph
-                lines = lines.Concat(GraphToStrings(GenerateVertices(graphSize))).ToList(); // and convert them only when it encounters the empty string, which delimits the end
-                lines.Add("");                                                              // of a graph.
+            for (int i = 0; i < maxGraphs; i++)                                                 // Note that this leaves an empty line at the end of the file - this is intended!
+            {                                                                                   // This allows LoadGraphs to separate the lines into parts belonging to each graph
+                lines = lines.Concat(GraphToStrings(GenerateVertices(VerticesAmt))).ToList();   // and convert them only when it encounters the empty string, which delimits the end
+                lines.Add("");                                                                  // of a graph.
             }
 
-            File.WriteAllLines(Directory.GetCurrentDirectory() + @"\graphs.txt", lines);
+            File.WriteAllLines(SourceDirectory + @"\graphs.txt", lines);
         }
 
         // Reads the graphs from graphs.txt and converts them to a list of Vertex arrays
         public static List<Vertex[]> LoadGraphs()
         {
-            string[] lines = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\graphs.txt");
+            string[] lines = File.ReadAllLines(SourceDirectory + @"\graphs.txt");
             List<Vertex[]> graphs = new List<Vertex[]>();
             List<string> currentGraph = new List<string>();
 
@@ -132,10 +132,10 @@ namespace OMI_ForceDirectedGraph
             Dictionary<Tuple<double, double, double>, double>[] GraphDicts;
             for (int i = 0; i < AlgoGraphDicts.Length; i++)
             {
-                GraphDicts = new Dictionary<Tuple<double,double,double>,double>[10];
+                GraphDicts = new Dictionary<Tuple<double,double,double>,double>[maxGraphs];
                 for (int j = 0; j < GraphDicts.Length; j++)
                 {
-                    GraphDicts[j] = AlgoDicts[i].Where(kvp => kvp.Key.Item2 == j).ToDictionary(kvp => new Tuple<double, double, double>(kvp.Key.Item2, kvp.Key.Item3, kvp.Key.Item4), kvp => kvp.Value);
+                    GraphDicts[j] = AlgoDicts[i].Where(kvp => kvp.Key.Item1 == j).ToDictionary(kvp => new Tuple<double, double, double>(kvp.Key.Item2, kvp.Key.Item3, kvp.Key.Item4), kvp => kvp.Value);
                 }
                 AlgoGraphDicts[i] = GraphDicts;
             }
@@ -172,10 +172,10 @@ namespace OMI_ForceDirectedGraph
 
             // Find what test number we're on
             int resultCount = 1;
-            while (File.Exists(Directory.GetCurrentDirectory() + @"\results" + resultCount + ".txt"))
+            while (File.Exists(SourceDirectory + @"\results" + resultCount + ".txt"))
                 resultCount++;
 
-            File.WriteAllLines(Directory.GetCurrentDirectory() + @"\results" + resultCount + ".txt", lines);
+            File.WriteAllLines(SourceDirectory + @"\results" + resultCount + ".txt", lines);
         }
     }
 }

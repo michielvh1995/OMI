@@ -81,7 +81,6 @@ namespace OMI_ForceDirectedGraph
         {
             Tests.GenerateVertices(Tests.VerticesAmt);
             pictureBox1.Invalidate();
-
 #if DEBUG   // Testing
             this.testFunctions();
 #endif
@@ -98,7 +97,7 @@ namespace OMI_ForceDirectedGraph
                 Console.WriteLine(Tests.Vertices[i].PositionVector);
             Console.WriteLine();
 #endif
-            Console.WriteLine(QualityTest.GetEdgeCrossings(Tests.Vertices));
+            Console.WriteLine(QualityTest.qualityTest(Tests.Vertices));
         }
     }
 }
