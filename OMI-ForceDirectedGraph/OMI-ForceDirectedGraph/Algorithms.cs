@@ -133,6 +133,9 @@ namespace OMI_ForceDirectedGraph
 
             Vector forceVector = r * -(k * k) / distance;
 
+            if(double.IsNaN(forceVector.X))
+                Console.WriteLine("N");
+
             return weight * forceVector;
         }
 
@@ -143,6 +146,10 @@ namespace OMI_ForceDirectedGraph
             r.Normalize();
 
             Vector forceVector = r * (distance * distance) / k;
+
+            if (double.IsNaN(forceVector.X))
+                Console.WriteLine("N");
+
 
             return weight * forceVector;
         }

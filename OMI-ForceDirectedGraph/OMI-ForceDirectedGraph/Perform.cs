@@ -1,6 +1,6 @@
 ﻿#undef HC
-#define FR
-#undef Eades
+#undef FR
+#define Eades
 
 
 using System;
@@ -40,8 +40,6 @@ namespace OMI_ForceDirectedGraph
 
                 // The ID is its position in the array
                 vertices[i] = new Vertex(i, new Vector(x, y), connectionSet);
-
-
             }
 
             // Each of the connections should go both ways.
@@ -85,8 +83,8 @@ namespace OMI_ForceDirectedGraph
 #if HC
                     Vector aForce = Algorithms.HCAttractive(Vertices[i], Vertices[connection], aWeight);
 #elif FR
-                    
-                    Vector aForce = Algorithms.FruchtReinAttractive(Vertices[i], Vertices[connection], FRConstant, aWeight);
+
+                    Vector aForce = new Vector(0, 0);//Algorithms.FruchtReinAttractive(Vertices[i], Vertices[connection], FRConstant, aWeight);
 #elif Eades
                     Vector aForce = Algorithms.EadesAttractive(Vertices[i],Vertices[connection],aWeight,k);
 #endif
@@ -113,7 +111,8 @@ namespace OMI_ForceDirectedGraph
 #if HC
                     Vector rForce = Algorithms.HCRepulsive(Vertices[i], Vertices[j], rWeight);
 #elif FR
-                    Vector rForce = Algorithms.FruchtReinRepulsive(Vertices[i], Vertices[j], FRConstant, aWeight);
+                    Vector rForce = Algorithms.FruchtRein(Vertices[i], Vertices[j], k, rWeight, aWeight);
+                         //Algorithms.FruchtReinRepulsive(Vertices[i], Vertices[j], FRConstant, aWeight);
 #elif Eades
                     Vector rForce = Algorithms.EadesRepulsive(Vertices[i], Vertices[j], rWeight);
 #endif
@@ -146,7 +145,7 @@ namespace OMI_ForceDirectedGraph
                     Vertex[] vertices = GenerateVertices(verticesAmt);
 
                     for (int i = 0; i < 1000; i++)
-                        updateForces(verticesAmt, vertices, aW, rW);
+                        vertices = updateForces(verticesAmt, vertices, aW, rW);
 
                     // And put the quality of the graph into a Tuple along with its a and r weights
                     Tuple<double[], double[]> outTuple = new Tuple<double[], double[]>(new[] { aW, rW }, QualityTest.TestAll(vertices));
@@ -181,7 +180,7 @@ namespace OMI_ForceDirectedGraph
             return output;
         }
 
-        // Loop over all possible combinations between aWeight and rWeight (delta a,r = 1)
+        // Loop over all possible combinations between k, aWeight and rWeight (delta a,r = 1)
         public static void ExecuteTestsTri()
         {
             int verticesAmt = 10;
@@ -197,8 +196,9 @@ namespace OMI_ForceDirectedGraph
                     {
                         Vertex[] vertices = GenerateVertices(verticesAmt);
 
+                        // The amount of updateForces iterations
                         for (int i = 0; i < 1000; i++)
-                            updateForces(verticesAmt, vertices, aW, rW, k);
+                            vertices = updateForces(verticesAmt, vertices, aW, rW, k);
 
                         // And put the quality of the graph into a Tuple along with its a and r weights
                         var outTuple = new Tuple<double[], double[]>(new[] { aW, rW, k }, QualityTest.TestAll(vertices));
