@@ -120,9 +120,19 @@ namespace OMI_ForceDirectedGraph
             return s * (fAtt + fRep);
         }
 
-        public static double FruchtReinConstant(double c, double radius)
+        private static double CountVertices(Vertex node, Vertex[] graph, double radius)
         {
-            return c * Math.Sqrt((Math.PI * radius * radius) / (1));
+            int count = 0;
+            foreach (Vertex v in graph)
+                if (Math.Abs(Vertex.VectorBetween(node, v).Length) <= radius)
+                    count++;
+
+            return count;
+        }
+
+        public static double FruchtReinConstant(Vertex node, Vertex[] graph, double c, double radius)
+        {
+            return c * Math.Sqrt((Math.PI * radius * radius) / CountVertices(node, graph, radius));
         }
 
         public static Vector FruchtReinRepulsive(Vertex node1, Vertex node2, double k, double weight)
