@@ -55,7 +55,10 @@ namespace OMI_ForceDirectedGraph
         {
             // Parallelised the execution of the tests.
             Stopwatch timer = Stopwatch.StartNew();
-            Perform.ExecuteTests();
+            
+            PerformHC HookeCoulomb = new PerformHC();
+            HookeCoulomb.ExecuteTests();
+
             Console.WriteLine(timer.ElapsedMilliseconds + " millis");
             timer.Stop();
         }
@@ -65,7 +68,22 @@ namespace OMI_ForceDirectedGraph
         {
             // Parallelised the execution of the tests.
             Stopwatch timer = Stopwatch.StartNew();
-            Perform.ExecuteTestsTri();
+            
+            PerformEades Eades = new PerformEades();
+            Eades.ExecuteTests();
+            
+            Console.WriteLine(timer.ElapsedMilliseconds + " millis");
+            timer.Stop();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // Parallelised the execution of the tests.
+            Stopwatch timer = Stopwatch.StartNew();
+
+            PerformFR FruchtmanReingold = new PerformFR();
+            FruchtmanReingold.ExecuteTests();
+
             Console.WriteLine(timer.ElapsedMilliseconds + " millis");
             timer.Stop();
         }

@@ -163,7 +163,7 @@ namespace OMI_ForceDirectedGraph
         {
             return new[]
             {
-                GetEdgeCrossings(vertices),getTotalEdges(vertices),
+                GetEdgeCrossings(vertices)/getTotalEdges(vertices),
                 edgeLengthDispersion(vertices),
                 vertexDensityDispersion(vertices)
             };
