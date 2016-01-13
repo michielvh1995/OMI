@@ -1,8 +1,0 @@
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\bin\Release\OMI-ForceDirectedGraph.exe
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\bin\Release\OMI-ForceDirectedGraph.pdb
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Release\OMI-ForceDirectedGraph.csprojResolveAssemblyReference.cache
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Release\OMI_ForceDirectedGraph.Form1.resources
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Release\OMI_ForceDirectedGraph.Properties.Resources.resources
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Release\OMI-ForceDirectedGraph.csproj.GenerateResource.Cache
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Release\OMI-ForceDirectedGraph.exe
-C:\Users\michiel\Documents\GitHub\OMI\OMI-ForceDirectedGraph\OMI-ForceDirectedGraph\obj\Release\OMI-ForceDirectedGraph.pdb
