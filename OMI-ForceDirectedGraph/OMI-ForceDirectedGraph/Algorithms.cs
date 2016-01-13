@@ -9,15 +9,9 @@ namespace OMI_ForceDirectedGraph
 {
     internal class Algorithms
     {
-        /// <summary>
-        /// Calculate the repulsive force between two vertices.
-        /// This is done using Coulomb's Algorithm
-        /// </summary>
-        /// <param name="node1"></param>
-        /// <param name="node2"></param>
-        /// <param name="rWeight"></param>
-        /// <returns></returns>
-        public static Vector HCRepulsive(Vertex node1, Vertex node2, double rWeight)
+        // Calculate the repulsive force between two vertices.
+        // This is done using Coulomb's Algorithm
+        public static Vector HcRepulsive(Vertex node1, Vertex node2, double rWeight)
         {
             // The vector between the two vertices (basically the line connecting them)
             Vector r = Vertex.VectorBetween(node1, node2);
@@ -29,14 +23,8 @@ namespace OMI_ForceDirectedGraph
             return rWeight * forceVector;
         }
 
-        /// <summary>
-        /// Calculate the attractive force between two vertices.
-        /// This is done using Hooke's Algorithm
-        /// </summary>
-        /// <param name="node1"></param>
-        /// <param name="node2"></param>
-        /// <param name="aWeight"></param>
-        /// <returns></returns>
+        // Calculate the attractive force between two vertices.
+        // This is done using Hooke's Algorithm
         public static Vector HCAttractive(Vertex node1, Vertex node2, double aWeight)
         {
             Vector r = Vertex.VectorBetween(node1, node2);

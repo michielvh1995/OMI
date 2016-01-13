@@ -49,7 +49,7 @@ namespace OMI_ForceDirectedGraph
                     if (closed[j] || i == j)
                         continue;
 
-                    Vector rForce = Algorithms.HCRepulsive(Vertices[i], Vertices[j], rWeight);
+                    Vector rForce = Algorithms.HcRepulsive(Vertices[i], Vertices[j], rWeight);
 
                     forcesDict[i] += rForce;
                 }

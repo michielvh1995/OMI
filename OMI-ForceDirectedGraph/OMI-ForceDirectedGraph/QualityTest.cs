@@ -152,12 +152,6 @@ namespace OMI_ForceDirectedGraph
             return standardDeviation(vertexCounts) / vertexCounts.Average();
         }
 
-        public static double qualityTest(Vertex[] vertices)
-        {
-            return GetEdgeCrossings(vertices) / getTotalEdges(vertices) +
-                   edgeLengthDispersion(vertices) +
-                   vertexDensityDispersion(vertices);
-        }
 
         public static double[] TestAll(Vertex[] vertices)
         {
