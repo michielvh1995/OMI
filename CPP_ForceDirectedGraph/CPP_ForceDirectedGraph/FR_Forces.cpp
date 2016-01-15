@@ -26,6 +26,8 @@ std::vector<Vertex> FR_Forces::calc_forces(int verticesAmt, std::vector<Vertex> 
 
 			for (int u = 0; u < verticesAmt; u++)
 			{
+				if (u == v) continue;
+
 				std::vector<float> delta = std::vector<float>(2);
 
 				delta[0] = vertices[v].position_vector[0] - vertices[u].position_vector[0];
@@ -33,8 +35,10 @@ std::vector<Vertex> FR_Forces::calc_forces(int verticesAmt, std::vector<Vertex> 
 
 				float distance = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 
-				forcesDict[v][0] += (delta[0] / distance) * FR_Forces::repulsive_force(distance, k);
-				forcesDict[v][1] += (delta[1] / distance) * FR_Forces::repulsive_force(distance, k);
+				float force = FR_Forces::repulsive_force(distance, k);
+
+				forcesDict[v][0] += (delta[0] / distance) * force * rWeight;
+				forcesDict[v][1] += (delta[1] / distance) * force * rWeight;
 			}
 		}
 
@@ -44,6 +48,9 @@ std::vector<Vertex> FR_Forces::calc_forces(int verticesAmt, std::vector<Vertex> 
 			forcesDict[v] = std::vector<float>(2);
 
 			for (const auto& u : vertices[v].connection_set) {
+
+				if (u == v) continue;
+
 				std::vector<float> delta = std::vector<float>(2);
 
 				delta[0] = vertices[v].position_vector[0] - vertices[u].position_vector[0];
@@ -51,8 +58,10 @@ std::vector<Vertex> FR_Forces::calc_forces(int verticesAmt, std::vector<Vertex> 
 
 				float distance = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 
-				forcesDict[v][0] += (delta[0] / distance) * FR_Forces::attractive_force(distance, k);
-				forcesDict[v][1] += (delta[1] / distance) * FR_Forces::attractive_force(distance, k);
+				float force = FR_Forces::attractive_force(distance, k);
+
+				forcesDict[v][0] += (delta[0] / distance) * force * aWeight;
+				forcesDict[v][1] += (delta[1] / distance) * force * aWeight;
 			}
 		}
 
@@ -61,6 +70,8 @@ std::vector<Vertex> FR_Forces::calc_forces(int verticesAmt, std::vector<Vertex> 
 		{
 
 			float distance = sqrt(forcesDict[v][0] * forcesDict[v][0] * forcesDict[v][1] * forcesDict[v][1]);
+
+			if (distance == 0) continue;
 
 			vertices[v].position_vector[0] += forcesDict[v][0] / distance * std::min(distance, temperature);
 			vertices[v].position_vector[1] += forcesDict[v][1] / distance * std::min(distance, temperature);

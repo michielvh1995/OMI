@@ -7,4 +7,5 @@ struct Vertex
 {
 	std::vector<float> position_vector;
 	std::unordered_set<int> connection_set;
+	int id;
 };
