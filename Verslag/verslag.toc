@@ -1,9 +1,17 @@
-\contentsline {section}{\numberline {1}intro}{1}
-\contentsline {section}{\numberline {2}Research Question}{2}
-\contentsline {section}{\numberline {3}Hypothesis}{2}
-\contentsline {section}{\numberline {4}Problem Discription}{2}
-\contentsline {section}{\numberline {5}Scope and Assumptions}{2}
-\contentsline {section}{\numberline {6}Criteria}{2}
-\contentsline {section}{\numberline {7}Test Data}{2}
-\contentsline {section}{\numberline {8}Algorithms}{2}
-\contentsline {section}{\numberline {9}Scenarios}{2}
+\contentsline {section}{\numberline {1}intro}{2}
+\contentsline {subsection}{\numberline {1.1}Algorithms}{2}
+\contentsline {subsection}{\numberline {1.2}Hooke-Coulomb}{2}
+\contentsline {subsection}{\numberline {1.3}Fruchterman Reingold}{2}
+\contentsline {subsection}{\numberline {1.4}Eades}{3}
+\contentsline {section}{\numberline {2}Research Question}{3}
+\contentsline {section}{\numberline {3}Problem Discription}{3}
+\contentsline {subsection}{\numberline {3.1}SAMENVATTING (SOORT VAN) VAN HET VORIGE VERSLAG}{3}
+\contentsline {section}{\numberline {4}The Experiment}{3}
+\contentsline {section}{\numberline {5}Result Data}{3}
+\contentsline {subsection}{\numberline {5.1}Tabellen}{3}
+\contentsline {subsection}{\numberline {5.2}Grafieken}{3}
+\contentsline {subsection}{\numberline {5.3}Toelichting}{3}
+\contentsline {subsection}{\numberline {5.4}Statistische Hypothese}{3}
+\contentsline {subsection}{\numberline {5.5}De uitwerking hiervan}{3}
+\contentsline {section}{\numberline {6}Conclusion & Discussion}{3}
+\contentsline {section}{\numberline {7}Reflection}{3}

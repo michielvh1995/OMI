@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.12.9)  18 JAN 2016 12:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.12.9)  18 JAN 2016 15:25
 entering extended mode
 **verslag.tex
 (verslag.tex
@@ -237,53 +237,88 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-)) (verslag.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
+))
+("C:\Program Files (x86)\MiKTeX\tex\latex\cite\cite.sty"
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+) (verslag.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 9.
+(Font)              <14.4> on input line 10.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 9.
+(Font)              <7> on input line 10.
 
-(verslag.toc)
+(verslag.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+
+Overfull \hbox (0.45776pt too wide) in paragraph at lines 8--8
+ [][] []\OT1/cmr/m/n/12 SAMENVATTING (SOORT VAN) VAN HET VORIGE VER- 
+ []
+
+! Misplaced alignment tab character &.
+<argument> \numberline {6}Conclusion &
+                                       Discussion
+l.16 ...\numberline {6}Conclusion & Discussion}{3}
+                                                  
+? 
+)
 \tf@toc=\write3
  [1
 
 {C:/Users/michiel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 28.
- ("C:\Program Files (x86)\MiKTeX\tex\latex\base\omscmr.fd"
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 29.
+
+("C:\Program Files (x86)\MiKTeX\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 28.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 29.
  [2]
-(verslag.aux) ) 
+Overfull \hbox (38.67413pt too wide) in paragraph at lines 52--52
+[]\OT1/cmr/bx/n/14.4 SAMENVATTING (SOORT VAN) VAN HET VORIGE
+ []
+
+! Misplaced alignment tab character &.
+<argument> Conclusion &
+                        Discussion
+l.63   \section{Conclusion & Discussion}
+                                        
+? 
+(verslag.bbl) [3] (verslag.aux) ) 
 Here is how much of TeX's memory you used:
- 449 strings out of 493673
- 4561 string characters out of 3143144
- 57993 words of memory out of 3000000
- 3856 multiletter control sequences out of 15000+200000
- 6667 words of font info for 24 fonts, out of 3000000 for 9000
+ 561 strings out of 493673
+ 5964 string characters out of 3143144
+ 60210 words of memory out of 3000000
+ 3956 multiletter control sequences out of 15000+200000
+ 9155 words of font info for 32 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 23i,6n,19p,145b,187s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-bx12.pfb><C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pf
-b><C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/P
-rogram Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program
- Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on verslag.pdf (2 pages, 67561 bytes).
+ 23i,6n,19p,157b,187s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb><C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb
+>
+Output written on verslag.pdf (3 pages, 76219 bytes).
 PDF statistics:
- 29 PDF objects out of 1000 (max. 8388607)
+ 32 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
