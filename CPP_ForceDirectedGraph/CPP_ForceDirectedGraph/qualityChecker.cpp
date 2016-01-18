@@ -35,7 +35,7 @@ int qualityChecker::get_edge_crossings(std::vector<Vertex>& vertices)
 
 					if (check_cross(edge1, edge2))
 					{
-						if (crossingSet.Add(edge1, edge2)) edgeCrossings++;
+						if (crossingSet.Add(edge1, edge2)) ++edgeCrossings;
 					}
 				}
 			}
@@ -65,41 +65,14 @@ bool qualityChecker::check_cross(edge edge1, edge edge2)
 	// Solve for t1 and t2
 	float denominator = (dy12 * dx34 - dx12 * dy34);
 	float t1 = ((p1.x - p3.x) * dy34 + (p3.y - p1.y) * dx34) / denominator;
-	/*if (float.IsInfinity(t1))
-	{
-	return false;
-	}*/
+	
+	if (denominator == 0)
+		return false;
 
 	float t2 = ((p3.x - p1.x) * dy12 + (p1.y - p3.y) * dx12) / -denominator;
 
 	// The segments intersect if t1 and t2 are between 0 and 1.
 	return ((t1 >= 0) && (t1 <= 1) && (t2 >= 0) && (t2 <= 1));
-
-	/* Deze code zorgt voor ander aantal edge crossings, volgens mij fout
-	float a1 = edge1.pos2.y - edge1.pos1.y;
-	float b1 = edge1.pos2.x - edge1.pos1.x;
-	float a2 = edge2.pos2.y - edge2.pos1.y;
-	float b2 = edge2.pos2.x - edge2.pos1.x;
-
-	if (edge1 == edge2)
-		return 0;
-
-	float d = (a1*b2 - a2*b1);
-
-	if (!d)
-		return 0;
-
-	float c1 = a1 *  edge1.pos1.x + b1 * edge1.pos1.y;
-	float c2 = a2 *  edge2.pos1.x + b2 * edge2.pos1.y;
-
-	// float t1 = ((p1.X - p3.X) * dy34 + (p3.Y - p1.Y) * dx34) / denominator;
-	float x = (b2*c1 - b1*c2) / d;
-	// float t2 = ((p3.X - p1.X) * dy12 + (p1.Y - p3.Y) * dx12)
-	float y = (a1*c2 - a2*c1) / d;
-
-	return x > std::min(edge1.pos1.x, edge2.pos1.x) && x < std::max(edge1.pos1.x, edge2.pos1.x)
-		&& y > std::min(edge1.pos1.y, edge2.pos1.y) && y < std::max(edge1.pos1.y, edge2.pos1.y);
-	*/
 }
 
 

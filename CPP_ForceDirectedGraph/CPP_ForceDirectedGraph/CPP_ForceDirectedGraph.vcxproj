@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="Eades_Forces.h" />
     <ClInclude Include="edge.h" />
+    <ClInclude Include="EdgeCrossingSet.h" />
     <ClInclude Include="FR_Forces.h" />
     <ClInclude Include="HC_Forces.h" />
     <ClInclude Include="qualityChecker.h" />
@@ -93,6 +94,7 @@
     <ClCompile Include="Eades_Forces.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="EdgeCrossingSet.cpp" />
     <ClCompile Include="FR_Forces.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>

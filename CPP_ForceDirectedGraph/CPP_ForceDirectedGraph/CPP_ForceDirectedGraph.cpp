@@ -35,12 +35,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	// Hooke-Coulomb seems to be working fine.
 
 	//										LOCKED_INDEX #vertices vertices aWeight, rWeight, iterations
-	// auto out_vertices = HC_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, .5, 10);
+	// auto out_vertices = HC_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, 0.2, 200);
 	// 200: 121,145 || 1250: 120,143
 
 	// Eades is still not 100% perfect.
 
-	// auto out_vertices = Eades_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, 1, 100, 1);
+	// auto out_vertices = Eades_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, 1, 10, 1);
 	// 100: 943,-296 || 200: 1595, -1246
 	// Begin: [0..300],[0..300]
 	// log2f:
@@ -93,7 +93,7 @@ std::vector<Vertex> generte_vertices(int amount)
 		random_vertex.position_vector[0] = (rand() % 300) / 10;
 		random_vertex.position_vector[1] = (rand() % 300) / 10;
 
-		int maxconnections = 1 + rand() % amount / 4;
+		int maxconnections = 1 + rand() % amount / 10;
 		for (int j = 0; j < maxconnections; j++)
 		{
 			auto add = rand() % amount;
