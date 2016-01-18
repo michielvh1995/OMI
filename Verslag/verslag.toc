@@ -1,1 +1,9 @@
 \contentsline {section}{\numberline {1}intro}{1}
+\contentsline {section}{\numberline {2}Research Question}{2}
+\contentsline {section}{\numberline {3}Hypothesis}{2}
+\contentsline {section}{\numberline {4}Problem Discription}{2}
+\contentsline {section}{\numberline {5}Scope and Assumptions}{2}
+\contentsline {section}{\numberline {6}Criteria}{2}
+\contentsline {section}{\numberline {7}Test Data}{2}
+\contentsline {section}{\numberline {8}Algorithms}{2}
+\contentsline {section}{\numberline {9}Scenarios}{2}

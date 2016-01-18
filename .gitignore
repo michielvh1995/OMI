@@ -50,3 +50,5 @@ Verslag/verslag.log
 *.aux
 Verslag/verslag.log
 Verslag/verslag.toc
+*.pdf
+Verslag/verslag.log
