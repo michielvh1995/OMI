@@ -1,12 +1,50 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
 
-\title{What are Neural Networks?}
-\author{Michiel van Heusden, 4173309}
-\date{Januari 5, 2016}
+\title{Research Plan Force-directed Graph Drawing}
+\author{Michiel van Heusden, 4173309 \and Maurits van der Veen, 4167287 \and Kevin Oosterlaak, 4012372}
+\date{\today}
 
 \begin{document}
   \maketitle
   \tableofcontents
   \section{intro}
+  Data requires often visualization before people understand what it means.
+  This visualization is done with graphs and charts.
+  This research focusses on the drawing methods of graphs.
+  These graphs consist of objects and the relations between eachother.
+  In graph theory the objects are called vertices and their relations edges.
+  % Source
+  % Bondy, John A.; Murty, Uppaluri S. R. (1976), “Graph theory with applications”, The Macmillan Press Ltd. Vol. 290.
+  Generating readable graphs becomes difficult according to the amount of vertices and edges.
+  To generate these correctly many algorithms were developed.
+  One family of functions to do this is called \emph{Force Directed Graph Drawing}.
+  The idea behind force directed graph drawing is to use physics based algorithms to calculate the positions of each correctly.
+  In this research a few algorithms wil be examined and how correctly they can generate a graph.
+  Not only will we compare different algorithms, we will also inspect how some algorithm-specific constants influence the results.
+
+  The algorithms that will be subject to our research are as follows:
+  \begin{itemize}
+    \item Hooke-Coulomb's Algorithm
+    \item The Fruchterman Reingold Algorithm
+    \item Eades' algorithm
+  \end{itemize}
+  More on these and the constants are in chapter \ref{par:algorithms}.
+
+  \section{Algorithms}\label{par:algorithms}
+
+  \section{Research Question}
+    Which force directed graph drawing algorithm yields the highest quality graphs?
+
+  \section{Hypothesis}
+
+  \section{Problem Discription}
+
+
+  \section{Scope and Assumptions}
+  \section{Criteria}
+  \section{Test Data}
+
+  \section{Scenarios}
+
 \end{document}

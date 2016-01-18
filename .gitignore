@@ -45,3 +45,8 @@ Temporary Items
 *.pdb
 *.cache
 *.suo
+*.pdf
+Verslag/verslag.log
+*.aux
+Verslag/verslag.log
+Verslag/verslag.toc
