@@ -3,7 +3,12 @@
 \usepackage{cite}
 
 \title{Research Plan Force-directed Graph Drawing}
-\author{Michiel van Heusden, 4173309 \and Maurits van der Veen, 4167287 \and Kevin Oosterlaak, 4012372 \and Jesse Ceelen, 4061837}
+\author{
+  Michiel van Heusden, 4173309 \and
+  Maurits van der Veen, 4167287 \and
+  Kevin Oosterlaak, 4012372 \and
+  Jesse Ceelen, 4061837
+  }
 \date{\today}
 
 \begin{document}
@@ -45,6 +50,42 @@
     The attractive forces are calculated using Hooke's Spring Law.
     The repulsive ones are based on particle physics.
     To be more precise, they are calculated using Coulomb's law of charged particles.
+
+    Hooke's Law can be used to calculate the distance a spring extends when a certain force is applied to it.
+    However, this same law can be used to calculate the required force for a spring to be extended a certain distance.
+    The law itself is rather simple:
+    \begin{equation}
+      F = c \delta X
+    \end{equation}
+    Here $c$ is a constant that defines the stiffness of the spring, it is also known as te \emph{spring constant}.
+    The change in length is $\delta X$, whilst $F$ the required force is.
+
+    Coulomb's law was first published by the French physicist Charles Augustin de Coulomb in 1785.\cite{coulomb1785premier}
+    Though it was first proposed for charged metal balls, it holds for charged particles.
+    In his book Coulomb states that two equally electrified metal balls "\ldots the repulsive force that the two balls \ldots exert on each other, follows the inverse proportion of the square of the distance".
+    This means that the repulsive force grows quadratic the closer the balls are.
+    Coulomb's law can be written down as an equation. In this equation $q_1$ and $q_2$ are the charges of the particles.
+    Where $r$ is the distance between them. Lastly the constant $k_e$ is Coulomb's Constant.\footnote{$k_e = 8.987551787 x 10^9 N m^2 C^{-2}$}
+
+    Changing Hooke's Law to make it useful for the calculation of forces is rather straightforeward:
+    Each edge corresponds to a spring, where the vertices are objects connected by springs.
+    Thus we can state an ideal length $l_0$ for each edge, for easy calculations we have decided on $l_0 = 10$.
+    Using the ideal length -- which can be seen as the starting length of the spring -- it is possible to calculate $\delta X$:
+    \begin{equation}
+      \delta X =  l_d - l_0
+    \end{equation}
+    In this formula $l_d$ is the distance between the two connected vertices.
+    The resulting formula for the attractive forces between vertices $i$ and $j$ will thus be:
+    \begin{equation}
+      F_a (i,j) = c (l_d - l_0)
+    \end{equation}
+    In this formula the constant $c$ is the variable that will be changed during testing.
+    Its value will vary between $ 0 $ and $1$, with intervals of $0.1$.
+    Not only could $c$ be seen as the stiffness of the spring, it could also be seen as the weight of the attractive force.
+    Thus it can be used to control how much influence the spring has on the vertex.
+
+    Rewriting Coulomb's law to be useful in our research requires a bit more effort.
+    However, it results in a very simplified equation.
 
     \subsubsection{Fruchterman Reingold}
     The Fruchterman Reingold algorithm on the otherhand is named after its inventors.\cite{fruchterman1991graph}
@@ -89,7 +130,10 @@
 
 
     \subsubsection{Eades}
+
     The algorithm proposed by Eades
+    % source
+    % cs.brown.edu/~rt/gdhandbook/chapters/force-directed.pdf p. 385
 
   \section{Research Question (Staat niet bij de opdracht)}   % Onderzoeksvraag
     Which force directed graph drawing algorithm yields the highest quality graphs?
