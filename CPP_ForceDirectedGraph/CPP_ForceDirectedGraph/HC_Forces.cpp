@@ -4,12 +4,12 @@
 
 # define M_PI           3.14159265358979323846 /* pi */
 
-std::vector<Vertex> HC_Forces::calculate_forces(int verticesAmt, std::vector<Vertex> vertices, float aWeight, float rWeight, int iterations)
+std::vector<Vertex> HC_Forces::calculate_forces(int lockedIndex, int verticesAmt, std::vector<Vertex> vertices, float aWeight, float rWeight, int iterations)
 {
 	std::vector<std::vector<float>> forcesDict = std::vector<std::vector<float>>(verticesAmt);
 	std::vector<bool> visited = std::vector<bool>(verticesAmt);
 
-	
+
 	for (int j = 0; j < iterations; j++)
 	{
 		for (int i = 0; i < verticesAmt; i++)
@@ -17,7 +17,7 @@ std::vector<Vertex> HC_Forces::calculate_forces(int verticesAmt, std::vector<Ver
 			forcesDict[i] = std::vector<float>(2);
 			visited[i] = false;
 		}
-		
+
 		// calculate the attractive forces
 		for (int i = 0; i < verticesAmt; i++)
 		{
@@ -54,6 +54,8 @@ std::vector<Vertex> HC_Forces::calculate_forces(int verticesAmt, std::vector<Ver
 		// Apply the forces
 		for (int i = 0; i < verticesAmt; i++)
 		{
+			if (i == lockedIndex) continue;
+
 			vertices[i].position_vector[0] += forcesDict[i][0];
 			vertices[i].position_vector[1] += forcesDict[i][1];
 		}

@@ -12,6 +12,7 @@
 
 
 #define V_Amount				15
+#define LOCKED_INDEX			1
 
 void coutVertices(std::vector<Vertex> vertices);
 std::vector<Vertex> generte_vertices(int amount);
@@ -33,13 +34,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	// Hooke-Coulomb seems to be working fine.
 
-	//												#vertices vertices aWeight, rWeight, iterations
-	// auto out_vertices = HC_Forces::calculate_forces(V_Amount, vert, 1, .5, 10);
+	//										LOCKED_INDEX #vertices vertices aWeight, rWeight, iterations
+	// auto out_vertices = HC_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, .5, 10);
 	// 200: 121,145 || 1250: 120,143
 
 	// Eades is still not 100% perfect.
 
-	// auto out_vertices = Eades_Forces::calculate_forces(V_Amount, vert, 1, 1, 100, 1);
+	// auto out_vertices = Eades_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, 1, 100, 1);
 	// 100: 943,-296 || 200: 1595, -1246
 	// Begin: [0..300],[0..300]
 	// log2f:
@@ -48,7 +49,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	// 0: 218, 282 || 0.2: 267, 282 || 0.6: 368, 249
 
 	// Fruchterman Reingold seems to be working
-	auto out_vertices = FR_Forces::calc_forces(V_Amount, vert, 1, 0.3, 0.3, 100);
+	auto out_vertices = FR_Forces::calc_forces(LOCKED_INDEX, V_Amount, vert, 1, 0.3, 0.3, 100);
 
 	std::cout << "\n";
 	coutVertices(out_vertices);

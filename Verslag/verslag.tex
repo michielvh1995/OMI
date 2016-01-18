@@ -14,9 +14,7 @@
   This visualization is done with graphs and charts.
   This research focusses on the drawing methods of graphs.
   These graphs consist of objects and the relations between eachother.
-  In graph theory the objects are called vertices and their relations edges.
-  % Source
-  % Bondy, John A.; Murty, Uppaluri S. R. (1976), “Graph theory with applications”, The Macmillan Press Ltd. Vol. 290.
+  In graph theory the objects are called vertices and their relations edges.\cite{bondy1976graph}
   Generating readable graphs becomes difficult according to the amount of vertices and edges.
   To generate these correctly many algorithms were developed.
   One family of functions to do this is called \emph{Force Directed Graph Drawing}.
@@ -35,17 +33,65 @@
   \subsection{Algorithms}\label{par:algorithms}
     As this paper focusses on the algorithms behind force directed graph drawing, the most important part of it are the researched algorithms.
     Most of these algorithms are (partially) based on physics.
-    \subsection{Hooke-Coulomb}
+
+    In order for the graphs not to "run away" a single vertex in during each of the tests will be locked in place.
+    For each iteration of the algorithms this will be the same vertex.
+
+    The attractive and repulsive forces are between two vertices each time.
+    At the end of each iteration the total forces per vector are summed.
+
+    \subsubsection{Hooke-Coulomb}
     The Hooke-Coulomb algorithm is not named after its inventors, but after the laws it follows.
+    The attractive forces are calculated using Hooke's Spring Law.
+    The repulsive ones are based on particle physics.
+    To be more precise, they are calculated using Coulomb's law of charged particles.
 
-
-    \subsection{Fruchterman Reingold}
+    \subsubsection{Fruchterman Reingold}
     The Fruchterman Reingold algorithm on the otherhand is named after its inventors.\cite{fruchterman1991graph}
+    For the method Fruchterman and Reingold proposed there are only two principles for graph drawing.
+    Namely that connected verticed should be drawn near eachother and vertices should not be drawn \emph{too} close to eachother.
+    This algorithm can be seen as based off of the idea of ideally distributed vertices.
+    It does not focus so much on each individual node as well as how far each node should be apart from eachother.
+    Like the Hooke Coulomb algorithm it is based off of particle physics:
+    Particles that are close to eachother are repulsive, whilst at a distance they are attracted to eachother.
+    This algorithm uses a few input variables of which three will be changed:
+    \begin{itemize}
+      \item The allowed surface area $W$
+      \item The optimal distance between vertices $k$
+      \item Attractive weight $\alpha$
+      \item Repulsive weight $r$
+    \end{itemize}
+    During our testing all but the allowed surface area will be changed.
+    Changing the surface area will only change the scale of the vertices.
+    The influence the other values have to how the graph will look becomes clear from their usage.
+    Both $\alpha$ and $r$ are weights to the forces.
+    Thus directly changing how much influence the attractive and repulsive forces have on the vertices.
+    $k$ on the other hand will not be directly changed, but by changing constant $c$ in its formula.
+    \begin{equation}\label{eq:FR_k}
+      k = c \sqrt{\frac{area}{number of vertices}}
+    \end{equation}
+
+    The constant $k$ plays an important part in calculation of both the attractive and repulsive forces.
+    These can be calculated using formulas \ref{eq:FR_a} and \ref{eq:FR_r} respectively.
+    In both of these equations $d$ is the distance between the two vertices on which the forces apply.
+    \begin{equation}\label{eq:FR_a}
+      f_a(d) = \frac{d^2}{k}
+    \end{equation}
+    \begin{equation}\label{eq:FR_r}
+      f_r(d) = -\frac{k^2}{d}
+    \end{equation}
+
+    However when blindly applying these forces a good looking graph will never converge.
+    Therefore a cooling function is required.
+    This cooling function indicates how much the maximum change is per vertex.
+    As the name suggests, this function returns a lower value every iteration.
+    Thanks to this function eventually the change in the graph per iteration will eventually become non-existent.
 
 
-    \subsection{Eades}
+    \subsubsection{Eades}
+    The algorithm proposed by Eades
 
-  \section{Research Question}   % Onderzoeksvraag
+  \section{Research Question (Staat niet bij de opdracht)}   % Onderzoeksvraag
     Which force directed graph drawing algorithm yields the highest quality graphs?
 
   \section{Problem Discription}
@@ -60,7 +106,7 @@
   \subsection{Statistische Hypothese}
   \subsection{De uitwerking hiervan}
 
-  \section{Conclusion & Discussion}
+  \section{Conclusion \& Discussion}
   \section{Reflection}
 
   \bibliography{verslag}{}

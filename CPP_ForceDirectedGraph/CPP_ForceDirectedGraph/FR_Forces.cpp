@@ -6,7 +6,7 @@
 # define M_PI           3.14159265358979323846 /* pi */
 # define Begin_Temp		8
 
-std::vector<Vertex> FR_Forces::calc_forces(int verticesAmt, std::vector<Vertex> vertices, float aWeight, float rWeight, float c, int iterations)
+std::vector<Vertex> FR_Forces::calc_forces(int lockedIndex, int verticesAmt, std::vector<Vertex> vertices, float aWeight, float rWeight, float c, int iterations)
 {
 	int area = 30 * 30;
 	float k = c * sqrt(area / verticesAmt);
@@ -68,6 +68,7 @@ std::vector<Vertex> FR_Forces::calc_forces(int verticesAmt, std::vector<Vertex> 
 		// Apply the forces, while the maximum change is t
 		for (int v = 0; v < verticesAmt; v++)
 		{
+			if (v == lockedIndex) continue;
 
 			float distance = sqrt(forcesDict[v][0] * forcesDict[v][0] * forcesDict[v][1] * forcesDict[v][1]);
 

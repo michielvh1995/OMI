@@ -5,7 +5,7 @@
 # define M_PI           3.14159265358979323846 /* pi */
 # define K_e			8.9875517873681764E9 /* Coulombs Constant */
 
-std::vector<Vertex> Eades_Forces::calculate_forces(int verticesAmt, std::vector<Vertex> vertices, float aWeight, float rWeight, int iterations, float k)
+std::vector<Vertex> Eades_Forces::calculate_forces(int lockedIndex, int verticesAmt, std::vector<Vertex> vertices, float aWeight, float rWeight, int iterations, float k)
 {
 	std::vector<std::vector<float>> forcesDict = std::vector<std::vector<float>>(verticesAmt);
 	std::vector<bool> visited = std::vector<bool>(verticesAmt);
@@ -62,6 +62,8 @@ std::vector<Vertex> Eades_Forces::calculate_forces(int verticesAmt, std::vector<
 		// Apply the forces
 		for (int i = 0; i < verticesAmt; i++)
 		{
+			if (i == lockedIndex) continue;
+
 			vertices[i].position_vector[0] += forcesDict[i][0];
 			vertices[i].position_vector[1] += forcesDict[i][1];
 		}
