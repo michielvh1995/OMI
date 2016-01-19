@@ -27,15 +27,7 @@
   In this research a few algorithms wil be examined and how correctly they can generate a graph.
   Not only will we compare different algorithms, we will also inspect how some algorithm-specific constants influence the results.
 
-  The algorithms that will be subject to our research are as follows:
-  \begin{itemize}
-    \item Hooke-Coulomb's Algorithm
-    \item The Fruchterman Reingold Algorithm
-    \item Eades' algorithm
-  \end{itemize}
-  More on these and the constants are in subsection \ref{par:algorithms}.
-
-  \subsection{Algorithms}\label{par:algorithms}
+  \subsection{The Algorithms}\label{par:algorithms}
     As this paper focusses on the algorithms behind force directed graph drawing, the most important part of it are the researched algorithms.
     Most of these algorithms are (partially) based on physics.
 
@@ -149,10 +141,22 @@
     Thanks to this function eventually the change in the graph per iteration will diminish.
 
     \subsubsection{Eades}
+    One person who has made many contributions to the research of force directed graph drawing is Peter Eades.
+    This algorithm is very similar to the Hooke-Coulomb one.
+    It uses springs and Coulomb's law to calculate the new locations of the forces.
+    The difference between them is the type of springs used.
+    Those used in the Hooke-Coulomb algorithm were Hookian -- or linear -- springs.
+    The force they exert grows linearly, while the ones used in Eades' algorithm where \emph{logartimic} springs.
+    Whenever Hookian springs get extended by a certain amount, no matter their length, results in the same amount of force.
+    Logaritmic springs on the otherhand require more change the longer they are for the same force.
+    The equation for the attractive force between vertices $i$ and $j$ in Eades' algorithm is:
+    \begin{equation}\label{eq:Eades_a}
+      f_a(i,j) = c_1 log(\frac{d}{c_2})
+    \end{equation}
 
-    The algorithm proposed by Eades
-    % source
-    % cs.brown.edu/~rt/gdhandbook/chapters/force-directed.pdf p. 385
+    Ofcourse there is only an attraction when the vertices are connected.
+    This formula requires two constant parameters $c_1$ and $c_2$, these can be used to adjust the output values.
+    The variable $d$ is the length of the spring.\cite{eades1984heuristic}
 
   \section{Research Question (Staat niet bij de opdracht)}   % Onderzoeksvraag
     Which force directed graph drawing algorithm yields the highest quality graphs?
