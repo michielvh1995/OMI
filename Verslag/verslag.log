@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.12.9)  19 JAN 2016 00:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.12.9)  19 JAN 2016 10:51
 entering extended mode
 **verslag.tex
 (verslag.tex
@@ -296,7 +296,7 @@ LaTeX Warning: Reference `eq:coulomb_rewritten' on page 3 undefined on input li
 ne 92.
 
 [3] [4]
-Overfull \hbox (38.67413pt too wide) in paragraph at lines 152--152
+Overfull \hbox (38.67413pt too wide) in paragraph at lines 162--162
 []\OT1/cmr/bx/n/14.4 SAMENVATTING (SOORT VAN) VAN HET VORIGE
  []
 
@@ -329,7 +329,7 @@ s/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmr
 8.pfb><C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 <C:/Program Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Pro
 gram Files (x86)/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on verslag.pdf (6 pages, 165325 bytes).
+Output written on verslag.pdf (6 pages, 167840 bytes).
 PDF statistics:
  77 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

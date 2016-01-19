@@ -91,11 +91,21 @@
     Rewriting Coulomb's law to be useful in our research requires a bit more effort.
     However, it results in the very simplified equation \ref{eq:coulomb_rewritten}.
     This equation is the result of some assumptions.
-    First off, both the charges of the particles -- in this case the vertices -- is 1.
+    First off, the charge of both the particles is 1.
+    Furthermore, as Coulomb's law is designed for particle physics in which distances are miniscule, it is possible to remove Coulomb's Constant.
     \begin{equation}
-      F = \frac{1}{distance^2} \vec{r}
+      F = \frac{1}{distance^2} \hat{r}
     \end{equation}
+    In this equation $\vec{r}$ is a directional unit vector between two vertices.
+    $\vec{r}$ can be calculated by using $\hat{r} = \vec{r_{i,j}} / |\vec{r_{i,j}}|$.
+    Here $\vec{r_{i,j}}$ is the line between vertices $i$ and $j$, with length $|\vec{r_{i,j}}|$.
 
+    Here we introduce a weight $w_a $ to adjust the influence the repulsive forces have on the vertices.
+    The weight variable will be changed during each of the tests.
+    With this knowledge the final equation for the repulsive force of the Hooke-Coulomb algorithm will be:
+    \begin{equation}
+      F_r(i,j) = w_a \frac{1}{|\vec{r_{i,j}}|^3} \vec{r_{i,j}}
+    \end{equation}
 
     \subsubsection{Fruchterman Reingold}
     The Fruchterman Reingold algorithm on the otherhand is named after its inventors.\cite{fruchterman1991graph}
@@ -136,8 +146,7 @@
     Therefore a cooling function is required.
     This cooling function indicates how much the maximum change is per vertex.
     As the name suggests, this function returns a lower value every iteration.
-    Thanks to this function eventually the change in the graph per iteration will eventually become non-existent.
-
+    Thanks to this function eventually the change in the graph per iteration will diminish.
 
     \subsubsection{Eades}
 
