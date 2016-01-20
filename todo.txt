@@ -1,0 +1,2 @@
+Add cooling schedule
+Quality attributes can be good or bad for 1, fix this
