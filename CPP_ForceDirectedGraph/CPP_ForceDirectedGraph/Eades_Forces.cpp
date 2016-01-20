@@ -110,6 +110,9 @@ std::vector<float> Eades_Forces::repulsive_force(Vertex node1, Vertex node2)
 	output[0] = K_e * (r[0] / (distance*distance*distance));
 	output[1] = K_e * (r[1] / (distance*distance*distance));
 
+	if (distance == 0)
+		output = { 1, 1 };
+
 	// output[0] = r[0] / (4 * M_PI) * 1 / (distance * distance);
 	// output[0] = r[1] / (4 * M_PI) * 1 / (distance * distance);
 

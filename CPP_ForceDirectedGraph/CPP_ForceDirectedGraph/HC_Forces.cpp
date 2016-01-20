@@ -28,8 +28,8 @@ std::vector<Vertex> HC_Forces::calculate_forces(int lockedIndex, int verticesAmt
 
 				std::vector<float> attractive_vector = attractive_force(vertices[i], vertices[elem]);
 
-				forcesDict[i][0] += attractive_vector[0];
-				forcesDict[i][1] += attractive_vector[1];
+				forcesDict[i][0] += aWeight* attractive_vector[0];
+				forcesDict[i][1] += aWeight* attractive_vector[1];
 
 				visited[i] = true;
 			}
@@ -45,8 +45,8 @@ std::vector<Vertex> HC_Forces::calculate_forces(int lockedIndex, int verticesAmt
 
 				std::vector<float> repulsive_vector = repulsive_force(vertices[i], vertices[elem]);
 
-				forcesDict[i][0] += repulsive_vector[0];
-				forcesDict[i][1] += repulsive_vector[1];
+				forcesDict[i][0] += rWeight * repulsive_vector[0];
+				forcesDict[i][1] += rWeight * repulsive_vector[1];
 			}
 
 		}
@@ -97,6 +97,9 @@ std::vector<float> HC_Forces::repulsive_force(Vertex node1, Vertex node2)
 	std::vector<float> output = std::vector<float>(2);
 	output[0] = 0.1* r[0] / (distance*distance*distance);
 	output[1] = 0.1* r[1] / (distance*distance*distance);
+
+	if (distance == 0)
+		output = { 1, 1 };
 
 	// output[0] = r[0] / (4 * M_PI) * 1 / (distance * distance);
 	// output[0] = r[1] / (4 * M_PI) * 1 / (distance * distance);

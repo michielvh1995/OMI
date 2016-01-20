@@ -22,9 +22,18 @@ public:
 	point pos1;
 	point pos2;
 
+	float get_length() const;
 	bool operator==(const edge& r) const;
 
 };
+
+inline float edge::get_length() const
+{
+	float dx = pos1.x - pos2.x;
+	float dy = pos1.y - pos2.y;
+
+	return sqrt(dx*dx + dy*dy);
+}
 
 inline bool edge::operator==(const edge& r) const
 {

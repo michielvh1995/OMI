@@ -11,7 +11,7 @@
 #include "qualityChecker.h"
 
 
-#define V_Amount				15
+#define V_Amount				20
 #define LOCKED_INDEX			1
 
 void coutVertices(std::vector<Vertex> vertices);
@@ -19,47 +19,54 @@ std::vector<Vertex> generte_vertices(int amount);
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	std::vector<Vertex> vertices = std::vector<Vertex>(3);
-
-	vertices[0].position_vector = { 10, 10 };
-	vertices[1].position_vector = { 15, 12 };
-	vertices[2].position_vector = { 14, 16 };
-
-	vertices[0].connection_set.insert(1);
-	vertices[1].connection_set.insert(0);
-	vertices[1].connection_set.insert(2);
-	vertices[2].connection_set.insert(1);
-
 	auto vert = generte_vertices(V_Amount);
 
-	// Hooke-Coulomb seems to be working fine.
+	std::vector<Vertex> out_vertices;
 
-	//										LOCKED_INDEX #vertices vertices aWeight, rWeight, iterations
-	// auto out_vertices = HC_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, 0.2, 200);
-	// 200: 121,145 || 1250: 120,143
+	char algo;
 
-	// Eades is still not 100% perfect.
+	std::cout << "Choose algorithm to test: \n" << "Hooke-Coulomb(h), Eades (e), Fruchterman (f) or Cancel (0) \n";
+	std::cin >> algo;
 
-	// auto out_vertices = Eades_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, 1, 1, 10, 1);
-	// 100: 943,-296 || 200: 1595, -1246
-	// Begin: [0..300],[0..300]
-	// log2f:
-	// 0.2:  384, 241 || 0.6: 701, -17
-	// log10f:
-	// 0: 218, 282 || 0.2: 267, 282 || 0.6: 368, 249
+	if (algo == '0') return 0;
 
-	// Fruchterman Reingold seems to be working
-	auto out_vertices = FR_Forces::calc_forces(LOCKED_INDEX, V_Amount, vert, 1, 0.3, 0.3, 100);
+	if (algo == 'h')
+		for (float aw = 0.1; aw < 1; aw += 0.1)
+			for (float rw = 0; rw < 1; rw += 0.1)
+				{
+					out_vertices = HC_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, aw, rw, 100);
 
-	std::cout << "\n";
-	coutVertices(out_vertices);
-	std::cout << "\n";
-	std::cout << qualityChecker::get_edge_crossings(out_vertices);
-	std::cout << "\n";
-	std::cout << RAND_MAX;
-	std::cout << "\n";
+					auto tested = qualityChecker::test_all(out_vertices);
+					std::cout << aw << " " << rw;
+					// Crossings/total edges ; edge length ; vertex dispersion
+					std::cout << " " << tested[0] + tested[1] + tested[2] << "\n";
+				}
 
+	if (algo == 'e')
+	for (float aw = 0.1; aw < 1; aw += 0.1)
+		for (float rw = 0.1; rw < 1; rw += 0.1)
+			for (float c = 0.1; c < 1; c += 0.1)
+			{
+				out_vertices = Eades_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, aw, rw, 100, c);
 
+				auto tested = qualityChecker::test_all(out_vertices);
+				std::cout << aw << " " << rw << " " << c;
+				// Crossings/total edges ; edge length ; vertex dispersion
+				std::cout << " " << tested[0] + tested[1] + tested[2] << "\n";
+			}
+
+	if (algo == 'f')
+	for (float aw = 0.1; aw < 1; aw += 0.1)
+		for (float rw = 0.1; rw < 1; rw += 0.1)
+			for (float c = 0.1; c < 1; c += 0.1)
+			{
+				out_vertices = FR_Forces::calc_forces(LOCKED_INDEX, V_Amount, vert, aw, rw, c, 100);
+
+				auto tested = qualityChecker::test_all(out_vertices);
+				std::cout << aw << " " << rw << " " << c;
+				// Crossings/total edges ; edge length ; vertex dispersion
+				std::cout << " " << tested[0] + tested[1] + tested[2] << "\n";
+			}
 
 	int a;
 	std::cin >> a;
@@ -85,7 +92,7 @@ std::vector<Vertex> generte_vertices(int amount)
 	for (int i = 0; i < amount; i++)
 	{
 		Vertex random_vertex;
-		
+
 		random_vertex.id = i;
 
 		random_vertex.position_vector = std::vector<float>(2);

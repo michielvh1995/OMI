@@ -17,8 +17,6 @@ std::vector<Vertex> FR_Forces::calc_forces(int lockedIndex, int verticesAmt, std
 
 	for (int i = 0; i < iterations; i++)
 	{
-		// std::cout << temperature << "\n";
-
 		// Calculate Repulsive Forces
 		for (int v = 0; v < verticesAmt; v++)
 		{
@@ -35,7 +33,10 @@ std::vector<Vertex> FR_Forces::calc_forces(int lockedIndex, int verticesAmt, std
 
 				float distance = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 
-				float force = FR_Forces::repulsive_force(distance, k);
+				if (distance == 0)
+					distance = 1;
+
+				float force = repulsive_force(distance, k);
 
 				forcesDict[v][0] += (delta[0] / distance) * force * rWeight;
 				forcesDict[v][1] += (delta[1] / distance) * force * rWeight;
@@ -45,8 +46,6 @@ std::vector<Vertex> FR_Forces::calc_forces(int lockedIndex, int verticesAmt, std
 		// Calculate Attractive Forces
 		for (int v = 0; v < verticesAmt; v++)
 		{
-			forcesDict[v] = std::vector<float>(2);
-
 			for (const auto& u : vertices[v].connection_set) {
 
 				if (u == v) continue;
@@ -57,8 +56,10 @@ std::vector<Vertex> FR_Forces::calc_forces(int lockedIndex, int verticesAmt, std
 				delta[1] = vertices[v].position_vector[1] - vertices[u].position_vector[1];
 
 				float distance = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
+				if (distance == 0)
+					distance = 1;
 
-				float force = FR_Forces::attractive_force(distance, k);
+				float force = attractive_force(distance, k);
 
 				forcesDict[v][0] += (delta[0] / distance) * force * aWeight;
 				forcesDict[v][1] += (delta[1] / distance) * force * aWeight;
@@ -70,15 +71,14 @@ std::vector<Vertex> FR_Forces::calc_forces(int lockedIndex, int verticesAmt, std
 		{
 			if (v == lockedIndex) continue;
 
-			float distance = sqrt(forcesDict[v][0] * forcesDict[v][0] * forcesDict[v][1] * forcesDict[v][1]);
+			float distance = sqrt(forcesDict[v][0] * forcesDict[v][0] + forcesDict[v][1] * forcesDict[v][1]);
+			float displacement = std::min(distance, temperature);
 
-			if (distance == 0) continue;
-
-			vertices[v].position_vector[0] += forcesDict[v][0] / distance * std::min(distance, temperature);
-			vertices[v].position_vector[1] += forcesDict[v][1] / distance * std::min(distance, temperature);
+			vertices[v].position_vector[0] += forcesDict[v][0] / distance * displacement;
+			vertices[v].position_vector[1] += forcesDict[v][1] / distance * displacement;
 		}
 
-		temperature = FR_Forces::cool(temperature, i, iterations);
+		temperature = cool(temperature, i, iterations);
 	}
 	return vertices;
 }

@@ -65,7 +65,7 @@ bool qualityChecker::check_cross(edge edge1, edge edge2)
 	// Solve for t1 and t2
 	float denominator = (dy12 * dx34 - dx12 * dy34);
 	float t1 = ((p1.x - p3.x) * dy34 + (p3.y - p1.y) * dx34) / denominator;
-	
+
 	if (denominator == 0)
 		return false;
 
@@ -87,6 +87,16 @@ int qualityChecker::get_total_connections(std::vector<Vertex>& vertices)
 	return sum / 2;
 }
 
+std::vector<float> qualityChecker::test_all(std::vector<Vertex>& vertices)
+{
+	std::vector<float> out;
+
+	out.push_back(get_edge_crossings(vertices) / get_total_connections(vertices));
+	out.push_back(edge_length_deviation(vertices));
+	out.push_back(vertex_density(vertices));
+
+	return out;
+}
 
 float qualityChecker::std_dev(std::vector<float>& values)
 {
@@ -107,5 +117,71 @@ float qualityChecker::std_dev(std::vector<float>& values)
 
 float qualityChecker::edge_length_deviation(std::vector<Vertex>& vertices)
 {
-	return 1;
+	std::vector<edge> visited;
+	std::vector<bool> closed = std::vector<bool>(vertices.size());
+	std::vector<float> lenghts;
+
+	for (int vert = 0; vert < vertices.size(); vert++)
+	{
+		edge worker;
+
+		worker.pos1 = { vertices[vert].position_vector[0], vertices[vert].position_vector[1] };
+		for (const auto& conn : vertices[vert].connection_set)
+		{
+			if (closed[conn]) continue;
+			worker.pos2 = { vertices[conn].position_vector[0], vertices[conn].position_vector[1] };
+			visited.push_back(worker);
+		}
+	}
+
+	for (const auto& tmp_edge : visited)
+	{
+		lenghts.push_back(tmp_edge.get_length());
+	}
+	return std_dev(lenghts);
+}
+
+int qualityChecker::vertex_density(std::vector<Vertex>& vertices)
+{
+	float minX = 0; float minY = 0;
+	float maxX = 0; float maxY = 0;
+
+	std::vector<float> neighbours_vector = std::vector<float>(vertices.size());
+
+	for (const auto& v : vertices)
+	{
+		if (v.position_vector[0] < minX)
+			minX = v.position_vector[0];
+		if (v.position_vector[0] > maxX)
+			maxX = v.position_vector[0];
+
+		if (v.position_vector[1] < minY)
+			minY = v.position_vector[1];
+		if (v.position_vector[1] > maxY)
+			maxY = v.position_vector[1];
+	}
+
+	float r = sqrt((maxX - minX)*(maxX - minX) + (maxX - minX)*(maxX - minX));
+
+	for (int i = 0; i < vertices.size(); i++)
+	{
+		edge tmp;
+		tmp.pos1 = { vertices[i].position_vector[0], vertices[i].position_vector[1] };
+		for (const auto& other : vertices)
+		{
+			if (vertices[i].position_vector == other.position_vector) continue;
+			tmp.pos2 = { other.position_vector[0], other.position_vector[1] };
+
+			if (tmp.get_length() < r)
+				++neighbours_vector[i];
+		}
+	}
+
+	float avg = 0;
+	for (const auto& c : neighbours_vector)
+		avg += c;
+
+	avg /= neighbours_vector.size();
+
+	return std_dev(neighbours_vector) / avg;
 }
