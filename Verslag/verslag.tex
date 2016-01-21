@@ -158,11 +158,38 @@
     This formula requires two constant parameters $c_1$ and $c_2$, these can be used to adjust the output values.
     The variable $d$ is the length of the spring.\cite{eades1984heuristic}
 
-  \section{Research Question (Staat niet bij de opdracht)}   % Onderzoeksvraag
-    Which force directed graph drawing algorithm yields the highest quality graphs?
-
   \section{Problem Discription}
-  \subsection{SAMENVATTING (SOORT VAN) VAN HET VORIGE VERSLAG}
+    The aforementioned algorithms are meant to make graphs more readable, giving them a clear organized structure.
+    Since readability is a rather vague and abstract measurement criteria in itself, there have to be concrete measurable properties that represent readability. 
+    The following properties can be used to express readability: \cite{kobourov2012spring} 
+    \begin{itemize}
+      \item Uniformity of vertex distribution
+      \item Uniformity of edge lengths 
+      \item Amount of edge crossings
+    \end{itemize}
+    The uniformity of vertex distribution can also be seen as the density of the vertices.
+    Every vertex has an area with a fixed radius where the density can be calculated by counting the amount of vertices in that area.
+    For a readable graph it is important that the densities of all the vertices are similar.
+    This characteristic of the uniformity of vertex distribution is measured with the standard deviation of the densities.
+    The smaller the deviation, the more readable the graph is.
+
+    With the uniformity of edge lengths, it is important that the lengths of all the edges are similar.
+    A graph with a high variety of edge lengths is generally harder to read than a graph with edges of equal lengths.
+    This characteristic can be measured with the standard deviation of the edge lengths.
+    If there are more edges with different lengths, the standard deviation will be bigger, thus making the graph hard to read.
+    Therefore, a high quality graph that is easy to read has a small deviation of edge lengths.
+    
+    For a good graph drawing, it is desirable to have as little amount of edge crossings as possible or none at all even.
+    Having a lot of edges that cross each other makes the graph look more chaotic and harder to read.
+    With that in mind, it obviously is preferred to not have them at all as it makes the graph more readable.
+
+    Getting the right properties for these characteristics to make the graph readable is what all the aforementioned algorithms strive for.
+    These algorithms calculate the attractive and repulsive forces differently and make use of them with different equations.
+    This results in getting different graphs with each algorithm with different properties for the three characteristics.
+    Finding out which algorithm comes closest to the desired readablity properties is what this research is meant to focus on.
+    When testing these three algorithms, the uniformity of both the vertex distribution and the edge lengths and the amount of edge crossings will be measured and compared.
+    By doing these tests multiple times, we can conclude which algorithm gives the highest quality graph from the results of these tests.
+    Which brings us to our research question: Which force directed graph drawing algorithm yields the highest quality graphs?
 
   \section{The Experiment} % Beschrijving van het uitgevoerde experiment
 
