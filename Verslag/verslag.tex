@@ -28,14 +28,13 @@
   Not only will we compare different algorithms, we will also inspect how some algorithm-specific constants influence the results.
 
   \subsection{The Algorithms}\label{par:algorithms}
-    As this paper focusses on the algorithms behind force directed graph drawing, the most important part of it are the researched algorithms.
-    Most of these algorithms are (partially) based on physics.
+    The method used for each of the tests is the same,  except for the way the forces are calculated.
+    Said method is for each vertex to iterate over the other vertices and calculate the repulsive force between them.
+    Then the same is done, but instead of iterating over vertices, it iterates over edges connected to the current vertex.
+    Lastly the forces are added to eachother and applied to each vertex.
 
-    In order for the graphs not to "run away" a single vertex in during each of the tests will be locked in place.
-    For each iteration of the algorithms this will be the same vertex.
-
-    The attractive and repulsive forces are between two vertices each time.
-    At the end of each iteration the total forces per vector are summed.
+    In order for the graphs not to "run away" it is possible to lock one vertex in place.
+    The forces will not be applied to this locked vertex.
 
     \subsubsection{Hooke-Coulomb}
     The Hooke-Coulomb algorithm is not named after its inventors, but after the laws it follows.
@@ -160,11 +159,11 @@
 
   \section{Problem Discription}
     The aforementioned algorithms are meant to make graphs more readable, giving them a clear organized structure.
-    Since readability is a rather vague and abstract measurement criteria in itself, there have to be concrete measurable properties that represent readability. 
-    The following properties can be used to express readability: \cite{kobourov2012spring} 
+    Since readability is a rather vague and abstract measurement criteria in itself, there have to be concrete measurable properties that represent readability.
+    The following properties can be used to express readability: \cite{kobourov2012spring}
     \begin{itemize}
       \item Uniformity of vertex distribution
-      \item Uniformity of edge lengths 
+      \item Uniformity of edge lengths
       \item Amount of edge crossings
     \end{itemize}
     The uniformity of vertex distribution can also be seen as the density of the vertices.
@@ -178,7 +177,7 @@
     This characteristic can be measured with the standard deviation of the edge lengths.
     If there are more edges with different lengths, the standard deviation will be bigger, thus making the graph hard to read.
     Therefore, a high quality graph that is easy to read has a small deviation of edge lengths.
-    
+
     For a good graph drawing, it is desirable to have as little amount of edge crossings as possible or none at all even.
     Having a lot of edges that cross each other makes the graph look more chaotic and harder to read.
     With that in mind, it obviously is preferred to not have them at all as it makes the graph more readable.
