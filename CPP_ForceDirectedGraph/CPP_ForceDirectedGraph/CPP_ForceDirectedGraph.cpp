@@ -23,15 +23,12 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	std::vector<Vertex> out_vertices;
 
-	char algo;
+	char algo = 'h';
 
-	std::cout << "Choose algorithm to test: \n" << "Hooke-Coulomb(h), Eades (e), Fruchterman (f) or Cancel (0) \n";
-	std::cin >> algo;
-
-	if (algo == '0') return 0;
+	if (!algo) return 0;
 
 	if (algo == 'h')
-		for (float aw = 0.1; aw < 1; aw += 0.1)
+		for (float aw = 0; aw < 1; aw += 0.1)
 			for (float rw = 0; rw < 1; rw += 0.1)
 				{
 					out_vertices = HC_Forces::calculate_forces(LOCKED_INDEX, V_Amount, vert, aw, rw, 100);
@@ -67,9 +64,6 @@ int _tmain(int argc, _TCHAR* argv[])
 				// Crossings/total edges ; edge length ; vertex dispersion
 				std::cout << " " << tested[0] <<  " " << tested[1] <<  " " << tested[2] << "\n";
 			}
-
-	int a;
-	std::cin >> a;
 
 	return 0;
 }
