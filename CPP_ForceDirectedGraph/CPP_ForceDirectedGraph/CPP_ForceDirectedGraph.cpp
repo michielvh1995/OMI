@@ -39,7 +39,7 @@ int _tmain(int argc, _TCHAR* argv[])
 					auto tested = qualityChecker::test_all(out_vertices);
 					std::cout << aw << " " << rw;
 					// Crossings/total edges ; edge length ; vertex dispersion
-					std::cout << " " << tested[0] + tested[1] + tested[2] << "\n";
+					std::cout << " " << tested[0] << " " << tested[1] << " " << tested[2] << "\n";
 				}
 
 	if (algo == 'e')
@@ -52,7 +52,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				auto tested = qualityChecker::test_all(out_vertices);
 				std::cout << aw << " " << rw << " " << c;
 				// Crossings/total edges ; edge length ; vertex dispersion
-				std::cout << " " << tested[0] + tested[1] + tested[2] << "\n";
+				std::cout << " " << tested[0] << " " << tested[1] << " " << tested[2] << "\n";
 			}
 
 	if (algo == 'f')
@@ -65,7 +65,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				auto tested = qualityChecker::test_all(out_vertices);
 				std::cout << aw << " " << rw << " " << c;
 				// Crossings/total edges ; edge length ; vertex dispersion
-				std::cout << " " << tested[0] + tested[1] + tested[2] << "\n";
+				std::cout << " " << tested[0] <<  " " << tested[1] <<  " " << tested[2] << "\n";
 			}
 
 	int a;
