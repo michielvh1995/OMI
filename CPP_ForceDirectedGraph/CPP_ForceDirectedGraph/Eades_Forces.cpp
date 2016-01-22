@@ -1,6 +1,7 @@
 ﻿#include "Eades_Forces.h"
 #include <iostream>
 #include "Vertex.h"
+#include "stdafx.h"
 
 # define M_PI           3.14159265358979323846 /* pi */
 # define K_e			8.9875517873681764E9 /* Coulombs Constant */

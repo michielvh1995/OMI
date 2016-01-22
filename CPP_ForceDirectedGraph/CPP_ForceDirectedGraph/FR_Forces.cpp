@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿#include "stdafx.h"
+#include <iostream>
 #include "Vertex.h"
 #include "FR_Forces.h"
 #include <algorithm>
