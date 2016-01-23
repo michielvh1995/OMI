@@ -20,8 +20,7 @@ bool EdgeCrossingSet::Add(edge edge1, edge edge2)
 	crossing.push_back(edge2);
 
 	for (std::vector<edge> checkedCrossing : crossingSet) {
-		if (checkedCrossing[0] == crossing[0] && checkedCrossing[1] == crossing[1] ||
-			checkedCrossing[1] == crossing[0] && checkedCrossing[0] == crossing[1])
+		if (checkedCrossing[0] == crossing[0] && checkedCrossing[1] == crossing[1])
 			// Don't add if crossing already exists in list
 			return false;
 	}
