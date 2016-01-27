@@ -17,15 +17,14 @@
   \section{intro}
   Data requires often visualization before people understand what it means.
   This visualization is done with graphs and charts.
-  This research focusses on the drawing methods of graphs.
-  These graphs consist of objects and the relations between eachother.
+  This research focuses on the drawing methods of graphs.
+  These graphs consist of objects and the relations between them.
   In graph theory the objects are called vertices and their relations edges.\cite{bondy1976graph}
-  Generating readable graphs becomes difficult according to the amount of vertices and edges.
+  Generating readable graphs becomes more difficult as the amount of vertices and edges grows.
   To generate these correctly many algorithms were developed.
-  One family of functions to do this is called \emph{Force Directed Graph Drawing}.
-  The idea behind force directed graph drawing is to use physics based algorithms to calculate the positions of each correctly.
-  In this research a few algorithms wil be examined and how correctly they can generate a graph.
-  Not only will we compare different algorithms, we will also inspect how some algorithm-specific constants influence the results.
+  One family of algorithms to do this is called \emph{Force Directed Graph Drawing}.
+  The idea behind force directed graph drawing is to treat the graph as a physical system and iterate on the forces acting on it until the result stabilizes. In this research several of these algorithms will be tested and compared to see which generates the most readable graphs.
+  Not only will we compare different algorithms, we will also look at how the parameters of these algorithms affect the results.
 
   \subsection{The Algorithms}\label{par:algorithms}
     The method used for each of the tests is the same,  except for the way the forces are calculated.
@@ -69,89 +68,74 @@
     In this formula $l_d$ is the distance between the two connected vertices.
     The resulting formula for the attractive forces between vertices $i$ and $j$ will thus be:
     \begin{equation}
-      F_a (i,j) = w_{a} (l_d - l_0)
+      F_a (i,j) = w_{a} (l_d - l_0) \hat{r}_{i,j}
     \end{equation}
     In this formula the constant $w_{a}$ is used instead of $c$ for future ease of distinguishing between the constants used in various formulas.
     Not only could $w_{a}$ be seen as the stiffness of the spring, it could also be seen as the weight of the attractive force, hence the new name.
-    Thus it can be used to control how much influence the spring has on the vertex.
+    Thus it can be used to control how much influence the spring has on the vertex. $\hat{r}_{i,j}$ is the normalized vector from vector $i$ to vector $j$, calculated as $\hat{r}_{i,j} = \vec{r_{i,j}} / |\vec{r_{i,j}}|$ with $\vec{r_{i,j}}$ the vector from vertex $i$ to vertex $j$ and $|\vec{r_{i,j}}|$ the length of said vector.
 
     Rewriting Coulomb's law to be useful in our research requires a bit more effort.
-    However, it results in the very simplified equation below \ref{eq:coulomb_rewritten}.
+    However, it results in the very simplified equation below.
+    
     This equation is the result of some assumptions.
     First off, the charge of both the particles is assumed to be 1.
     Furthermore, since more control over the strength of this force is desired Coulomb's constant can be merged with a weight constant $w_{r}$
-    \begin{equation} \label{eq:coulomb_rewritten}
-      F = w_{r} \frac{1}{distance^2} \hat{r}
-    \end{equation}
-    In this equation $\hat{r}$ is a directional unit vector between two vertices.
-    $\hat{r}$ can be calculated by using $\hat{r} = \vec{r_{i,j}} / |\vec{r_{i,j}}|$.
-    Here $\vec{r_{i,j}}$ is the vector from vertex $i$ to vertex $j$, with length $|\vec{r_{i,j}}|$.
-
-    Here we introduce a weight $w_a $ to adjust the influence the repulsive forces have on the vertices.
-    The weight variable will be changed during each of the tests.
-    With this knowledge the final equation for the repulsive force of the Hooke-Coulomb algorithm will be:
     \begin{equation}
-      F_r(i,j) = w_a \frac{1}{|\vec{r_{i,j}}|^3} \vec{r_{i,j}}
+      F_{r}(i,j) = w_{r} \frac{\hat{r}_{j,i}}{|\vec{r_{j,i}}|^2}
     \end{equation}
+    In this equation $\hat{r}_{j,i}$ is the normalized vector from vertex $j$ to vertex $i$. This order is chosen like this to ensure that the force applied to vertex $i$ is calculated instead of the force on vertex $j$.
 
     \subsubsection{Fruchterman Reingold}
-    The Fruchterman Reingold algorithm on the otherhand is named after its inventors.\cite{fruchterman1991graph}
-    For the method Fruchterman and Reingold proposed there are only two principles for graph drawing.
-    Namely that connected verticed should be drawn near eachother and vertices should not be drawn \emph{too} close to eachother.
-    This algorithm can be seen as based off of the idea of ideally distributed vertices.
-    It does not focus so much on each individual node as well as how far each node should be apart from eachother.
+    The Fruchterman Reingold algorithm on the other hand is named after its inventors.\cite{fruchterman1991graph}
+    For the method Fruchterman and Reingold proposed there are only two principles for graph drawing, namely that connected vertices should be drawn near each other but not \emph{too} near.
+    This algorithm can be seen as being based off of the idea of ideally distributed vertices.
+    It does not focus so much on each individual node as much as how far all nodes should be apart from each other.
     Like the Hooke Coulomb algorithm it is based off of particle physics:
-    Particles that are close to eachother are repulsive, whilst at a distance they are attracted to eachother.
+    All vertices repel each other whilst connected vertices are attracted to each other.
     This algorithm uses a few input variables of which three will be changed:
     \begin{itemize}
-      \item The allowed surface area $W$
-      \item The optimal distance between vertices $k$
-      \item Attractive weight $\alpha$
-      \item Repulsive weight $r$
+	  \item Force weight $w$
+      \item The optimal distance between vertices $k_{i}$
+      \item The measured area $A$
     \end{itemize}
-    During our testing all but the allowed surface area will be changed.
-    Changing the surface area will only change the scale of the vertices.
-    The influence the other values have to how the graph will look becomes clear from their usage.
-    Both $\alpha$ and $r$ are weights to the forces.
-    Thus directly changing how much influence the attractive and repulsive forces have on the vertices.
-    $k$ on the other hand will not be directly changed, but by changing constant $c$ in its formula.
+    During our testing all of these will be directly or indirectly changed.
+    $w$ is the weight by which both the attractive and the repulsive forces will be scaled, directly changing their influence on the vertices.
+    $k_{i}$ on the other hand will not be directly changed, but by changing constant $C$ in its formula:
     \begin{equation}\label{eq:FR_k}
-      k = c \sqrt{\frac{area}{number of vertices}}
+      k_{i} = C \sqrt{\frac{A}{N}}
     \end{equation}
-
-    The constant $k$ plays an important part in calculation of both the attractive and repulsive forces.
+	In this equation $C$ is a constant that will be changed during testing, $A$ is the aforementioned area, circular around the vertex $i$ that $k_i$ is calculated for. This area is varied by changing its radius $r$. $N$ is then the total amount of vertices in said area, including the vertex at its center.
+	
+    The constant $k_{i}$ plays an important part in calculation of both the attractive and repulsive forces.
     These can be calculated using formulas \ref{eq:FR_a} and \ref{eq:FR_r} respectively.
-    In both of these equations $d$ is the distance between the two vertices on which the forces apply.
     \begin{equation}\label{eq:FR_a}
-      f_a(d) = \alpha \frac{d^2}{k}
+      f_{a}(i,j) = w \frac{|\vec{r_{i,j}}|^2}{k_{i}}
     \end{equation}
     \begin{equation}\label{eq:FR_r}
-      f_r(d) = - r \frac{k^2}{d}
+      f_{r}(i,j) = - w \frac{k_{i}^2}{|\vec{r_{i,j}}|}
     \end{equation}
 
-    However when blindly applying these forces a good looking graph will never converge.
-    Therefore a cooling function is required.
-    This cooling function indicates how much the maximum change is per vertex.
-    As the name suggests, this function returns a lower value every iteration.
-    Thanks to this function eventually the change in the graph per iteration will diminish.
+    Unfortunately with just these formulas the system will not converge, so a cooling function is required. The output from this cooling function acts a limit on the distance a vertex may be moved after summing all the forces applied to it. As the name suggests, this function returns a lower value every iteration, thus ensuring increasingly small changes to the graph.
+    
+    For our experiment a simple hyperbolic cooling function will suffice:
+    \begin{equation}
+	    Cooling(i) = t_{0}^{1 - \frac{i}{n}}
+    \end{equation}
+    Where $t_{0}$ is the initial limit, $n$ is the total amount of iterations the algorithm will run for and $i$ is the current iteration.
 
     \subsubsection{Eades}
     One person who has made many contributions to the research of force directed graph drawing is Peter Eades.
-    This algorithm is very similar to the Hooke-Coulomb one.
-    It uses springs and Coulomb's law to calculate the new locations of the forces.
+    This algorithm is very similar to the Hooke-Coulomb one in that it uses the same laws, with an alteration to Hooke's spring law.
     The difference between them is the type of springs used.
-    Those used in the Hooke-Coulomb algorithm were Hookian -- or linear -- springs.
-    The force they exert grows linearly, while the ones used in Eades' algorithm where \emph{logartimic} springs.
-    Whenever Hookian springs get extended by a certain amount, no matter their length, results in the same amount of force.
-    Logaritmic springs on the otherhand require more change the longer they are for the same force.
+    The force they exert in Hooke's law grows linearly, while it grows \emph{logarithmically} in Eades' algorithm.
+	This means that the more a 'spring' is extended the speed at which the force increases slows down.
     The equation for the attractive force between vertices $i$ and $j$ in Eades' algorithm is:
     \begin{equation}\label{eq:Eades_a}
-      f_a(i,j) = c_1 log(\frac{d}{c_2})
+      f_a(i,j) = w_{a1} log_{2}(\frac{|\vec{r_{i,j}}|}{w_{a2}})
     \end{equation}
 
-    Ofcourse there is only an attraction when the vertices are connected.
-    This formula requires two constant parameters $c_1$ and $c_2$, these can be used to adjust the output values.
-    The variable $d$ is the length of the spring.\cite{eades1984heuristic}
+    Aside from this changed equation the algorithm remains exactly the same.
+    This formula requires two constants $w_{a1}$ and $w_{a2}$ that will be changed during testing. \cite{eades1984heuristic}
 
   \section{Problem Discription}
     The aforementioned algorithms are meant to make graphs more readable, giving them a clear organized structure.
@@ -163,32 +147,29 @@
       \item Amount of edge crossings
     \end{itemize}
     The uniformity of vertex distribution can also be seen as the density of the vertices.
-    Every vertex has an area with a fixed radius where the density can be calculated by counting the amount of vertices in that area.
-    For a readable graph it is important that the densities of all the vertices are similar.
-    This characteristic of the uniformity of vertex distribution is measured with the standard deviation of the densities.
-    The smaller the deviation, the more readable the graph is.
+    Every vertex has an area with a fixed radius where the density can be calculated by counting the amount of vertices in that area. Division by the area is not necessary since the same area is used for all vertices, thus cancelling each other out.
+    For a readable graph it is important that these densities are similar for all vertices.
+    This characteristic of the uniformity of vertex distribution is then the coefficient of variation of the densities for all vertices, calculated by the standard deviation divided by the median. The lower this value, the better the graph is.
 
     With the uniformity of edge lengths, it is important that the lengths of all the edges are similar.
-    A graph with a high variety of edge lengths is generally harder to read than a graph with edges of equal lengths.
-    This characteristic can be measured with the standard deviation of the edge lengths.
-    If there are more edges with different lengths, the standard deviation will be bigger, thus making the graph hard to read.
-    Therefore, a high quality graph that is easy to read has a small deviation of edge lengths.
+    A graph with a high variety of edge lengths is generally harder to read than a graph with edges of about equal lengths.
+    This characteristic is measured with the coefficient of variation of all edge lengths. The lower this value, the better the graph is.
 
-    For a good graph drawing, it is desirable to have as little amount of edge crossings as possible or none at all even.
-    Having a lot of edges that cross each other makes the graph look more chaotic and harder to read.
-    With that in mind, it obviously is preferred to not have them at all as it makes the graph more readable.
+    For a good graph drawing, it is desirable to have as few edge crossings as possible, ideally none at all.
+    Having a lot of edges that cross each other makes the graph look more chaotic and cluttered, thus making it harder to read. This characteristic is measured with the ratio of edges that cross any other edges to the total amount of edges. Again, the lower this value the better the graph is, $0$ when there are no edge crossings.
 
-    Getting the right properties for these characteristics to make the graph readable is what all the aforementioned algorithms strive for.
-    These algorithms calculate the attractive and repulsive forces differently and make use of them with different equations.
-    This results in getting different graphs with each algorithm with different properties for the three characteristics.
-    Finding out which algorithm comes closest to the desired readablity properties is what this research is meant to focus on.
-    When testing these three algorithms, the uniformity of both the vertex distribution and the edge lengths and the amount of edge crossings will be measured and compared.
-    By doing these tests multiple times, we can conclude which algorithm gives the highest quality graph from the results of these tests.
+	Finally, the resulting values of these three measurements are summed to form the final quality measure. This Quality measure also indicates a better graph the smaller it is, just like its constituent components.
+
+    Getting an as low as possible Quality value is what all the aforementioned algorithms strive for.
+    Finding out which algorithm creates the graphs with the highest readability, which is to say the lowest Quality value, is what this research is meant to focus on.
+    By doing these tests multiple times, we can conclude which algorithm gives the most readable graph from the results of these tests.
     Which brings us to our research question: Which force directed graph drawing algorithm yields the highest quality graphs?
 
   \section{The Experiment} % Beschrijving van het uitgevoerde experiment
 
   \section{Result Data} % Eindresultaten
+  Now that the tests have been conducted this section will be used to illustrate the collected data, form hypotheses and test them. Due to the expansive size of our dataset 
+  
   \subsection{Tabellen} % Uitgebeeld enzo
   \subsection{Grafieken}
   \subsection{Toelichting}

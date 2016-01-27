@@ -70,31 +70,6 @@ namespace OMI_ForceDirectedGraph
             return aWeight * forceVector;
         }
 
-        /// <summary>
-        /// Calculates the translation for Vertex node1 based on the repulsive and attractive forces between it and node2.
-        /// The attractive and repulsive forces are calculated according to the optimal vertex distribution based on the algorithm of Fruchterman and Reingold
-        /// The total translation for node1 is then the sum of the translations on node1 based on every other node.
-        /// </summary>
-        /// <param name="node1">The vertex to be translated</param>
-        /// <param name="node2">The vertex that's interacting with node1 via repulsive and attractive forces</param>
-        /// <param name="c">A constant that determines the weight of the optimal vertex distribution parameter</param>
-        /// <param name="radius">A constant that determines the radius around the vertex to count the vertices in</param>
-        /// <param name="s">The ratio between the size of the translation and the size of the combined attractive and repulsive force</param>
-        /// <returns>The translation vector to be applied to node1</returns>
-        public static Vector FruchtRein(Vertex node1, Vertex node2, double c, double radius, double s)
-        {
-            Vector r = Vertex.VectorBetween(node1, node2);
-            Vector rn = r;
-            rn.Normalize();
-            double d = r.Length;
-
-            double k = c * Math.Sqrt((Math.PI * radius * radius) / (1)); // Function to count number of objects in radius around Vertex v here
-            Vector fAtt = node1.ConnectedWith(node2) ? ((d * d) / k) * rn : new Vector(0, 0);
-            Vector fRep = (-(k * k) / d) * rn;
-
-            return s * (fAtt + fRep);
-        }
-
         private static double CountVertices(Vertex node, Vertex[] graph, double radius)
         {
             int count = 0;
