@@ -1,6 +1,9 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 \usepackage{cite}
+
+\graphicspath{{}}
 
 \title{Research Plan Force-directed Graph Drawing}
 \author{
@@ -158,26 +161,86 @@
     For a good graph drawing, it is desirable to have as few edge crossings as possible, ideally none at all.
     Having a lot of edges that cross each other makes the graph look more chaotic and cluttered, thus making it harder to read. This characteristic is measured with the ratio of edges that cross any other edges to the total amount of edges. Again, the lower this value the better the graph is, $0$ when there are no edge crossings.
 
-	Finally, the resulting values of these three measurements are summed to form the final quality measure. This Quality measure also indicates a better graph the smaller it is, just like its constituent components.
+	Finally, the resulting values of these three measurements are summed to form the final Quality measure, hereafter referred to as $Q$. This $Q$ measure also indicates a better graph the smaller it is, just like its constituent components.
 
-    Getting an as low as possible Quality value is what all the aforementioned algorithms strive for.
-    Finding out which algorithm creates the graphs with the highest readability, which is to say the lowest Quality value, is what this research is meant to focus on.
+    Getting an as low as possible $Q$ value is what all the aforementioned algorithms strive for.
+    Finding out which algorithm creates the graphs with the highest readability, which is to say the lowest $Q$ value, is what this research is meant to focus on.
     By doing these tests multiple times, we can conclude which algorithm gives the most readable graph from the results of these tests.
     Which brings us to our research question: Which force directed graph drawing algorithm yields the highest quality graphs?
 
   \section{The Experiment} % Beschrijving van het uitgevoerde experiment
 
   \section{Result Data} % Eindresultaten
-  Now that the tests have been conducted this section will be used to illustrate the collected data, form hypotheses and test them. Due to the expansive size of our dataset 
+  Now that the tests have been conducted this section will be used to illustrate the collected data, form hypotheses and test them. Due to the expansive size of our dataset no tables or graphs have been included.
   
-  \subsection{Tabellen} % Uitgebeeld enzo
-  \subsection{Grafieken}
-  \subsection{Toelichting}
-  \subsection{Statistische Hypothese}
-  \subsection{De uitwerking hiervan}
+  %\subsection{Tabellen} % Uitgebeeld enzo
+  %\subsection{Grafieken}
+  %\subsection{Toelichting}
+  \subsection{Statistical Hypotheses}
+  Four hypotheses were tested based off of this data, three to answer our research question in detail and an additional one that arose from an observed peculiarity in collected data:
+  \begin{itemize}
+  	\item[1.] Hooke-Coulomb performs better than Eades
+  	\item[2.] Hooke-Coulomb performs better than Fruchterman-Reingold
+  	\item[3.] Eades performs worse than Fruchterman-Reingold
+  	\item[4.] Changing the value of $w_{a2}$ in the Eades algorithm has a significant effect on the $Q$ value of the final graph.
+  \end{itemize}
+  
+  The first three would be obvious to test using an independent t-test, but since the same graphs were used in all cases the data is not completely independent, making this test impossible. Instead a one-sample t-test was conducted, using the median $Q$ over all parameter configurations for the first algorithm is used as the median to compare the dataset of the other algorithm to. The function of these hypotheses should also be clear - they allow a ranking to be applied to all three algorithms indicating which one is the best, which one the second best and which one is the worst.
+  
+  The final hypothesis arose from an empirical observation from the data. In particular we noticed that the variations in the $w_{a2}$ constant in the Eades algorithm did not seem to affect the resulting $Q$ value much. To test this would be difficult since ten different settings of this constant were tried, but based on empirical observation of the test results we decided on a paired t-test between the lowest and the highest settings of $w_{a2}$ since they seemed to be somewhat different.
+  
+  So formally, the four tests are as follows, all to be conducted with a confidence of $0.95$:
+  \begin{itemize}
+  	\item[1.] $H_{0}: \mu_{HC} < \mu_{E}$ \\
+			  $H_{1}: \mu_{HC} \geq \mu_{E}$
+	\item[2.] $H_{0}: \mu_{HC} < \mu_{FR}$ \\
+			  $H_{1}: \mu_{HC} \geq \mu_{FR}$
+	\item[3.] $H_{0}: \mu_{E} > \mu_{FR}$ \\
+		      $H_{1}: \mu_{E} \leq \mu_{FR}$
+	\item[4.] $\mu_{Dw_{a2}} = \mu_{loww_{a2}} - \mu{highw_{a2}}$ \\
+			  $H_{0}: \mu_{Dw_{a2}} \neq 0$ \\
+			  $H_{1}: \mu_{Dw_{a2}} = 0$
+  \end{itemize}
+  
+  Notice the directions of the inequalities - remember that a \emph{lower} $Q$ value means that the graph is better.
+  
+  \subsection{Hypotheses results}
+  First, the Hooke-Coulomb and Eades test. The table below and all other tables thereafter were generated using IBM SPSS Statistics 23 Trial version.
+  
+  In this table the Test Value is the median $Q$ value of the Hooke-Coulomb data. The values in the topmost table are the statistics of the Eades data while the bottom table shows the various values resulting from the one-sample t-test.
+  \includegraphics{HookeEadesTest}
+  
+  The way this table should be read is not immediately obvious, but the result is that the $Q$ values of Eades are significantly higher than those of the Hooke-Coulomb algorithm, since the t-value is much higher than $t_{crit} \approx 1.646$. So $\mu_{E} > \mu_{HC} \Rightarrow \mu_{HC} < \mu_{E}$, so the null hypothesis should not be discarded, meaning that the Hooke-Coulomb algorithm performs significantly better than the Eades algorithm.
+  
+  \includegraphics{HookeFRTest}
+  
+  This test runs parallel to the previous one. The t-value is much greater than $t_{crit} \approx 1.646$, so $\mu_{FR} > \mu_{HC} \Rightarrow \mu_{HC} < \mu_{FR}$. So the null hypothesis should not be discarded, meaning that the Hooke-Coulomb algorithm performs significantly better than the Fruchterman-Reingold algorithm.
+  
+  \includegraphics{EadesFRTest}
+  
+  Again, this works parallel to the previous two tests, with the difference that the t-value here is much lower than $-t_{crit} \approx -1.646$. So $\mu_{FR} < \mu_{E} \Rightarrow \mu_{E} > \mu_{FR}$, so the null hypothesis should not be discarded, meaning that the Eades algorithm performs significantly worse than the Fruchterman-Reingold algorithm. \\
+  
+  This final test reads a bit differently. The topmost table shows the statistics of both the low $w_{a2}$ and the high $w_{a2}$ values while the middle one shows the correlation between the two sample sets. The third and bottommost table shows the statistics of the difference of the two datasets as well as the test results.
+  \includegraphics[width=450pt]{LogPairedTest}
+  
+  With 99 degrees of freedom the critical t-value is $-t_{crit} \approx -1.984$, and clearly the t-value is smaller than that, so the median of the difference between the two values is significantly different from 0. Thus the null hypothesis should not be discarded, meaning that the two values are in fact significantly different from one another. Thus varying the parameter $w_{a2}$ has a significant effect on the $Q$ values, at the very least between the highest and lowest settings. 
 
   \section{Conclusion \& Discussion}
+  From the first three tests the result $\mu_{HK} < \mu_{FR} < \mu_{E}$ can be concluded. This means that the Hooke-Coulomb algorithm performs the best, followed by the Fruchterman-Reingold algorithm and finally by the Eades algorithm. So, at least within our testing parameters, the Hooke-Coulomb algorithm performs the best out of these three.
+  
+  Additionally, the $w_{a2}$ parameter in the Eades algorithm does in fact have a significant effect on the resulting $Q$ values.
+  
   \section{Reflection}
+  However, there are some footnotes that should be placed by these results.
+  First of all, these results are not at all what we expected when we started the research. In particular, Eades' algorithm was explicitly stated to be, in general, an improvement on the Hooke-Coulomb algorithm while the opposite is true. Even more surprising is that the mean $Q$ value of the Eades algorithm is over $5$, which is not just higher than those of the Hooke-Coulomb and Fruchterman-Reingold algorithms but much higher.
+  
+  A possible explanation of this could be that we have been testing in a local optimum, even though we did base our testing ranges around the parameter settings that should work well according to Eades. Another possibility is that Eades' algorithm simply performs worse than Hooke-Coulomb only within the parameters the test was conducted with, while it does perform better on average, with larger graphs for example.
+  
+  Another strange thing is that Fruchterman-Reingold didn't perform better. Even though its performance was by no means terrible we did expect this algorithm, which is quite a bit newer than the other two algorithms, to perform better. This might be for the same reasons why the Eades algorithm performed badly.
+  
+  Overall, we were just not able to conduct enough meaningful tests. Being restricted to theory we were almost completely unfamiliar with and a lack of computational power and time to collect more data significantly reduced our ability to conduct proper research.
+  
+  For future research the optimal performance settings for each algorithm individually might be researched first, after which their results can be compared more fairly. A much wider range of graphs and parameter settings in particular would be highly desired for more accurate results.
 
   \bibliography{verslag}{}
   \bibliographystyle{unsrt}

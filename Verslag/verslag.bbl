@@ -1,29 +1,3 @@
-\begin{thebibliography}{1}
-
-\bibitem{bondy1976graph}
-John~Adrian Bondy and Uppaluri Siva~Ramachandra Murty.
-\newblock {\em Graph theory with applications}, volume 290.
-\newblock Macmillan London, 1976.
-
-\bibitem{coulomb1785premier}
-Charles~Augustin Coulomb.
-\newblock {\em Premier-[troisi{\`e}me] m{\'e}moire sur l'electricit{\'e} et le
-  magn{\'e}tisme}.
-\newblock Acad{\'e}mie Royale des sciences, 1785.
-
-\bibitem{fruchterman1991graph}
-Thomas~MJ Fruchterman and Edward~M Reingold.
-\newblock Graph drawing by force-directed placement.
-\newblock {\em Softw., Pract. Exper.}, 21(11):1129--1164, 1991.
-
-\bibitem{eades1984heuristic}
-P~Eades.
-\newblock A heuristic for graph drawing. congressus numerantium, 42, 149--160.
-\newblock {\em Elsevier, BV (2005). Scopus. Retrieved August}, 17:2005, 1984.
-
-\bibitem{kobourov2012spring}
-Stephen~G. Kobourov.
-\newblock Spring embedders and force directed graph drawing algorithms.
-\newblock {\em CoRR}, abs/1201.3011, 2012.
+\begin{thebibliography}{}
 
 \end{thebibliography}
