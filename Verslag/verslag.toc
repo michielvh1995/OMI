@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}intro}{1}
+\contentsline {subsection}{\numberline {1.1}The Algorithms}{2}
+\contentsline {subsubsection}{\numberline {1.1.1}Hooke-Coulomb}{2}
+\contentsline {subsubsection}{\numberline {1.1.2}Fruchterman Reingold}{4}
+\contentsline {subsubsection}{\numberline {1.1.3}Eades}{5}
+\contentsline {section}{\numberline {2}Problem Discription}{5}
+\contentsline {section}{\numberline {3}The Experiment}{7}
+\contentsline {section}{\numberline {4}Result Data}{7}
+\contentsline {subsection}{\numberline {4.1}Tabellen}{7}
+\contentsline {subsection}{\numberline {4.2}Grafieken}{7}
+\contentsline {subsection}{\numberline {4.3}Toelichting}{7}
+\contentsline {subsection}{\numberline {4.4}Statistische Hypothese}{7}
+\contentsline {subsection}{\numberline {4.5}De uitwerking hiervan}{7}
+\contentsline {section}{\numberline {5}Conclusion \& Discussion}{7}
+\contentsline {section}{\numberline {6}Reflection}{7}
