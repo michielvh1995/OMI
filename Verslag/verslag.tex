@@ -140,7 +140,7 @@
     Aside from this changed equation the algorithm remains exactly the same.
     This formula requires two constants $w_{a1}$ and $w_{a2}$ that will be changed during testing. \cite{eades1984heuristic}
 
-  \section{Problem Discription}
+  \section{Problem Description}
     The aforementioned algorithms are meant to make graphs more readable, giving them a clear organized structure.
     Since readability is a rather vague and abstract measurement criteria in itself, there have to be concrete measurable properties that represent readability.
     The following properties can be used to express readability: \cite{kobourov2012spring}
@@ -169,6 +169,33 @@
     Which brings us to our research question: Which force directed graph drawing algorithm yields the highest quality graphs?
 
   \section{The Experiment} % Beschrijving van het uitgevoerde experiment
+  To conduct the experiment, a program was made that implements the three algorithms: Hooke-Coulomb, Furchterman-Reingold and Eades. There are two methods for each algorithm. A method for calculating the repulsive force between all vertices and a method for calculating the attractive force between edge-connected vertices. Each method has a parameter for the weight of the force. The methods for Fuchterman Reingold's algorithm also have a parameter for the constant C, which is used for calculating the optimal distance between vertices, and a parameter for the radius of the area around the vertex, which determines for which vertices the optimal distance is calculated. Finally, the method for calculating the attractive force in Eades' algorithm has an additional parameter for the logarithmic constant which reflects the 'stiffness' of the simulated spring. The algorithms were tested with every combination of values for the parameters. Ten different values were used for every parameter and the values were interpolated linearly. The range in which each parameter was varied is listed below:\newline
+  
+  \textbf{Hooke-Coulomb}
+  \begin{itemize}
+  	\item $w_{a}: [0.0001 \sim 0.4]$
+  	\item $w_{r}: [0.0001 \sim 0.2]$
+  \end{itemize}
+  
+  \textbf{Fuchterman Reingold}
+  \begin{itemize}
+  	\item $w_{a}: [0.0001 \sim 1]$
+  	\item $w_{r}: [0.0001 \sim 1]$
+  	\item $radius: [1 \sim 3]$
+  \end{itemize}
+  
+  \textbf{Eades}
+  \begin{itemize}
+  	\item $w_{a1}: [0.0001 \sim 0.4]$
+  	\item $w_{r}: [0.0001 \sim 0.2]$
+  	\item $w_{a2}: [0.0001 \sim 2.0]$
+  \end{itemize}
+  
+  In addition to these, the spring length at rest $l_{0}$ in the Hooke-Coulomb algorithm and the starting 'temperature' for the cooling schedule in the Fruchterman-Reingold algorithm were set at $0$ and $5$, respectively.
+  
+  The input data to test each algorithm were all graphs with 20 vertices. These graphs were randomly generated before conducting the experiment, and the same ten graphs were reused for every combination of parameter settings. Each vertex had at least one connection and could have up to 10 random connections with other vertices. The initial x and y positions of the vertices were a random double between 0 and 1. Ten of these graphs were generated and each graph was used as input for a test.
+  
+  Every algorithm was run for 100 iterations on each of the graphs, and each combination of parameter settings was used for every graph. After each test the quality of the output graph was measured, based on the three properties mentioned in the problem description. The average of the $Q$ values over all graphs per combination of parameters was then used as the output value in order to guarantee a t-distribution, convenient for statistical testing.
 
   \section{Result Data} % Eindresultaten
   Now that the tests have been conducted this section will be used to illustrate the collected data, form hypotheses and test them. Due to the expansive size of our dataset no tables or graphs have been included.
@@ -207,20 +234,18 @@
   \subsection{Hypotheses results}
   First, the Hooke-Coulomb and Eades test. The table below and all other tables thereafter were generated using IBM SPSS Statistics 23 Trial version.
   
-  In this table the Test Value is the median $Q$ value of the Hooke-Coulomb data. The values in the topmost table are the statistics of the Eades data while the bottom table shows the various values resulting from the one-sample t-test.
+  In this table the Test Value is the median $Q$ value of the Hooke-Coulomb data. The values in the topmost table are the statistics of the Eades data while the bottom table shows the various values resulting from the one-sample t-test. \\
   \includegraphics{HookeEadesTest}
   
-  The way this table should be read is not immediately obvious, but the result is that the $Q$ values of Eades are significantly higher than those of the Hooke-Coulomb algorithm, since the t-value is much higher than $t_{crit} \approx 1.646$. So $\mu_{E} > \mu_{HC} \Rightarrow \mu_{HC} < \mu_{E}$, so the null hypothesis should not be discarded, meaning that the Hooke-Coulomb algorithm performs significantly better than the Eades algorithm.
-  
+  The way this table should be read is not immediately obvious, but the result is that the $Q$ values of Eades are significantly higher than those of the Hooke-Coulomb algorithm, since the t-value is much higher than $t_{crit} \approx 1.646$. So $\mu_{E} > \mu_{HC} \Rightarrow \mu_{HC} < \mu_{E}$, so the null hypothesis should not be discarded, meaning that the Hooke-Coulomb algorithm performs significantly better than the Eades algorithm. \\
   \includegraphics{HookeFRTest}
   
-  This test runs parallel to the previous one. The t-value is much greater than $t_{crit} \approx 1.646$, so $\mu_{FR} > \mu_{HC} \Rightarrow \mu_{HC} < \mu_{FR}$. So the null hypothesis should not be discarded, meaning that the Hooke-Coulomb algorithm performs significantly better than the Fruchterman-Reingold algorithm.
-  
+  This test runs parallel to the previous one. The t-value is much greater than $t_{crit} \approx 1.646$, so $\mu_{FR} > \mu_{HC} \Rightarrow \mu_{HC} < \mu_{FR}$. So the null hypothesis should not be discarded, meaning that the Hooke-Coulomb algorithm performs significantly better than the Fruchterman-Reingold algorithm. \\
   \includegraphics{EadesFRTest}
   
   Again, this works parallel to the previous two tests, with the difference that the t-value here is much lower than $-t_{crit} \approx -1.646$. So $\mu_{FR} < \mu_{E} \Rightarrow \mu_{E} > \mu_{FR}$, so the null hypothesis should not be discarded, meaning that the Eades algorithm performs significantly worse than the Fruchterman-Reingold algorithm. \\
   
-  This final test reads a bit differently. The topmost table shows the statistics of both the low $w_{a2}$ and the high $w_{a2}$ values while the middle one shows the correlation between the two sample sets. The third and bottommost table shows the statistics of the difference of the two datasets as well as the test results.
+  This final test reads a bit differently. The topmost table shows the statistics of both the low $w_{a2}$ and the high $w_{a2}$ values while the middle one shows the correlation between the two sample sets. The third and bottommost table shows the statistics of the difference of the two datasets as well as the test results. \\
   \includegraphics[width=450pt]{LogPairedTest}
   
   With 99 degrees of freedom the critical t-value is $-t_{crit} \approx -1.984$, and clearly the t-value is smaller than that, so the median of the difference between the two values is significantly different from 0. Thus the null hypothesis should not be discarded, meaning that the two values are in fact significantly different from one another. Thus varying the parameter $w_{a2}$ has a significant effect on the $Q$ values, at the very least between the highest and lowest settings. 

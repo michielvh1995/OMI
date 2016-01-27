@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.12.1)  27 JAN 2016 17:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.12.1)  27 JAN 2016 20:53
 entering extended mode
 **verslag.tex
 (verslag.tex
@@ -315,26 +315,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 2.
 )
 \tf@toc=\write3
+ [1
 
-
-LaTeX Warning: Citation `bondy1976graph' on page 1 undefined on input line 25.
-
-[1
-
-{C:/Users/Jesse/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-
-LaTeX Warning: Citation `coulomb1785premier' on page 2 undefined on input line 
-54.
-
-[2]
+{C:/Users/Jesse/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 62.
-
-
-LaTeX Warning: Citation `fruchterman1991graph' on page 3 undefined on input lin
-e 92.
-
-[3]
+ [3]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 100.
 
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\omscmr.fd"
@@ -342,99 +328,89 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
- [4]
 
-LaTeX Warning: Citation `eades1984heuristic' on page 5 undefined on input line 
-141.
+[4] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
+ []
 
-LaTeX Warning: Citation `kobourov2012spring' on page 5 undefined on input line 
-146.
-
-[5] [6] [7] <HookeEadesTest.png, id=41, 435.12563pt x 179.16937pt>
+[6] [7] [8] <HookeEadesTest.png, id=43, 435.12563pt x 179.16937pt>
 File: HookeEadesTest.png Graphic file (type png)
 
 <use HookeEadesTest.png>
-Package pdftex.def Info: HookeEadesTest.png used on input line 211.
+Package pdftex.def Info: HookeEadesTest.png used on input line 238.
 (pdftex.def)             Requested size: 435.12456pt x 179.16893pt.
 
-Overfull \hbox (80.65706pt too wide) in paragraph at lines 210--212
-\OT1/cmr/m/n/12 t-test. [] 
+Overfull \hbox (45.12456pt too wide) in paragraph at lines 237--239
+[] 
  []
 
-<HookeFRTest.png, id=42, 454.69875pt x 185.19188pt>
+<HookeFRTest.png, id=44, 454.69875pt x 185.19188pt>
 File: HookeFRTest.png Graphic file (type png)
  <use HookeFRTest.png>
-Package pdftex.def Info: HookeFRTest.png used on input line 215.
+Package pdftex.def Info: HookeFRTest.png used on input line 241.
 (pdftex.def)             Requested size: 454.69763pt x 185.1914pt.
 
-Overfull \hbox (82.32245pt too wide) in paragraph at lines 215--216
-[][] 
+Overfull \hbox (64.69763pt too wide) in paragraph at lines 240--242
+[] 
  []
 
-[8 <./HookeEadesTest.png> <./HookeFRTest.png>]
-<EadesFRTest.png, id=48, 454.69875pt x 181.42781pt>
+[9 <./HookeEadesTest.png>] <EadesFRTest.png, id=50, 454.69875pt x 181.42781pt>
 File: EadesFRTest.png Graphic file (type png)
- <use EadesFRTest.png>
-Package pdftex.def Info: EadesFRTest.png used on input line 219.
+
+<use EadesFRTest.png>
+Package pdftex.def Info: EadesFRTest.png used on input line 244.
 (pdftex.def)             Requested size: 454.69763pt x 181.42737pt.
 
-Overfull \hbox (82.32245pt too wide) in paragraph at lines 219--220
-[][] 
+Overfull \hbox (64.69763pt too wide) in paragraph at lines 243--245
+[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 221--222
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
 
  []
 
-<LogPairedTest.png, id=49, 676.02562pt x 270.25969pt>
+<LogPairedTest.png, id=51, 676.02562pt x 270.25969pt>
 File: LogPairedTest.png Graphic file (type png)
  <use LogPairedTest.png>
-Package pdftex.def Info: LogPairedTest.png used on input line 224.
+Package pdftex.def Info: LogPairedTest.png used on input line 249.
 (pdftex.def)             Requested size: 450.0pt x 179.90599pt.
 
-Overfull \hbox (91.68115pt too wide) in paragraph at lines 223--225
-\OT1/cmr/m/n/12 sults. [] 
+Overfull \hbox (60.0pt too wide) in paragraph at lines 248--250
+[] 
  []
 
-[9 <./EadesFRTest.png> <./LogPairedTest.png>] [10] (verslag.bbl
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-) [11] (verslag.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+[10 <./HookeFRTest.png> <./EadesFRTest.png>] [11 <./LogPairedTest.png>]
+(verslag.bbl) [12] (verslag.aux) ) 
 Here is how much of TeX's memory you used:
- 1484 strings out of 493673
- 18812 string characters out of 3141530
- 76052 words of memory out of 3000000
- 4843 multiletter control sequences out of 15000+200000
+ 1486 strings out of 493673
+ 18828 string characters out of 3141530
+ 76067 words of memory out of 3000000
+ 4845 multiletter control sequences out of 15000+200000
  9155 words of font info for 32 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 27i,8n,19p,601b,187s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C
-:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/
-Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Pr
-ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Progr
-am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/f
-onts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmti12.pfb>
-Output written on verslag.pdf (11 pages, 233728 bytes).
+ 27i,8n,19p,1122b,187s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/
+public/amsfonts/cm/cmex10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmi12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmmi6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmmi7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+r17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.
+pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb>
+<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
+Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Pr
+ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Progr
+am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program 
+Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on verslag.pdf (12 pages, 242905 bytes).
 PDF statistics:
- 114 PDF objects out of 1000 (max. 8388607)
+ 117 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
